@@ -20,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <Providers>
-        <body className={quicksand.className}>{children}</body>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <ToastContainer limit={4} autoClose={3000} position='bottom-right' />
+        <body className={quicksand.className}>
+          {children}
+          <ReactQueryDevtools initialIsOpen={false} />
+          <ToastContainer limit={4} autoClose={3000} position='bottom-right' />
+        </body>
       </Providers>
     </html>
   );
