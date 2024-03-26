@@ -148,6 +148,7 @@ model User {
   image             String?
   isApproved        Boolean            @default(false)
   password          String
+  role              Role               @default(USER)
   Account           Account[]
   Cart              Cart?
   Company           Company?
@@ -155,6 +156,7 @@ model User {
   Favorite          Favorite[]
   Order             Order[]
   Session           Session[]
+  UserPermission    UserPermission[]
   VerificationToken VerificationToken?
 }
 
@@ -165,4 +167,25 @@ model VerificationToken {
   userId     String   @unique
   valid      Boolean  @default(true)
   User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Permission {
+  id             String           @id
+  name           String           @unique
+  description    String?
+  UserPermission UserPermission[]
+}
+
+model UserPermission {
+  userId       String
+  permissionId String
+  Permission   Permission @relation(fields: [permissionId], references: [id])
+  User         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, permissionId])
+}
+
+enum Role {
+  ADMIN
+  USER
 }
