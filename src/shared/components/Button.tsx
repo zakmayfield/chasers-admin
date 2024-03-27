@@ -11,7 +11,11 @@ interface ButtonProps {
 export const Button: FC<ButtonProps> = ({ className, action, content }) => {
   return (
     <button
-      className={`min-w-24 py-1 px-2 border rounded-md ${className ?? ''}`}
+      className={`
+        min-w-24 py-1 px-2 rounded-md border-2 
+        bg-green-700 hover:bg-green-600 border-green-600 hover:border-green-700 ${
+          className ?? ''
+        }`}
       onClick={() => action?.()}
     >
       {content}

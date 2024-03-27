@@ -7,3 +7,33 @@
     text-wrap: balance;
   }
 }
+
+* {
+  @apply box-border;
+  @apply text-white;
+  @apply text-lg;
+}
+
+body {
+  @apply bg-slate-800;
+}
+
+h1,
+h2 {
+  @apply text-3xl;
+}
+
+h3,
+h4 {
+  @apply text-2xl;
+}
+h5,
+h6 {
+  @apply text-xl;
+}
+
+input {
+  @apply p-2;
+  @apply rounded-md;
+  @apply placeholder:text-gray-700;
+}
