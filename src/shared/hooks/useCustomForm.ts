@@ -1,11 +1,7 @@
 import { useForm } from 'react-hook-form';
 
-type UseCustomForm = {
-  ({}: {}): {};
-};
-
-export const useCustomForm: UseCustomForm = ({}) => {
-  const {} = useForm();
+export const useCustomForm = ({ onSubmit }: { onSubmit: () => void }) => {
+  const {} = useForm({});
 
   return {};
 };
