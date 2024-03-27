@@ -1,6 +1,11 @@
 import { useForm } from 'react-hook-form';
 
-export const useCustomForm = () => {
+type UseCustomForm = {
+  ({}: {}): {};
+};
+
+export const useCustomForm: UseCustomForm = ({}) => {
   const {} = useForm();
+
   return {};
 };

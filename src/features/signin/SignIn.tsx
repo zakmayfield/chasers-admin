@@ -6,6 +6,6 @@ import { FC } from 'react';
 interface SignInProps {}
 
 export const SignIn: FC<SignInProps> = ({}) => {
-  const {} = useCustomForm();
+  const {} = useCustomForm({});
   return <div>SignIn</div>;
 };
