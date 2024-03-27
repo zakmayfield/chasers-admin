@@ -19,13 +19,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <Providers>
-        <body className={quicksand.className}>
-          {children}
-          <ReactQueryDevtools initialIsOpen={false} />
-          <ToastContainer limit={4} autoClose={3000} position='bottom-right' />
-        </body>
-      </Providers>
+      <body className={quicksand.className}>
+        <main>
+          <Providers>
+            {children}
+            <ReactQueryDevtools initialIsOpen={false} />
+          </Providers>
+        </main>
+
+        <ToastContainer limit={4} autoClose={3000} position='bottom-right' />
+      </body>
     </html>
   );
 }
