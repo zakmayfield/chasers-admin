@@ -36,4 +36,5 @@ input {
   @apply p-2;
   @apply rounded-md;
   @apply placeholder:text-gray-700;
+  @apply text-black;
 }
