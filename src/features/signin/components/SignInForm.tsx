@@ -24,7 +24,7 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
           name='password'
           props={{ placeholder: 'password', type: 'password' }}
         />
-        <Button content='sign in' className='mt-6' />
+        <Button content='sign in' className='mt-6 p-2' />
       </div>
     </form>
   );
