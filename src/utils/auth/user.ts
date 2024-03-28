@@ -26,6 +26,18 @@ export const getUserByEmail = async (email: string) => {
   }
 };
 
+export const getUserById = async (id: string) => {
+  try {
+    const userRecord = await db.user.findUnique({
+      where: { id },
+    });
+
+    return userRecord;
+  } catch (error) {
+    return null;
+  }
+};
+
 export const parseSignInData = (formValues: OptionalSignInValues) => {
   const parsed = SignInValidator.safeParse(formValues);
 
