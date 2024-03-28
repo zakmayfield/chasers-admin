@@ -49,12 +49,15 @@ const providers: NextAuthProviders = [
 
       //^ fetch user via parsed data
       const user = await getUserByUsername(username);
+      console.log({ user });
+
       if (!user) {
         return null;
       }
 
       //^ password validation
       const passwordMatch = await compare(password, user.password);
+      console.log({ passwordMatch });
 
       if (!passwordMatch) {
         return null;
@@ -89,28 +92,29 @@ const callbacks: NextAuthCallbacks = {
     if (token) {
       session.user.id = token.id;
       session.user.role = token.role;
+      session.user.email = token.email;
     }
 
     return session;
   },
 
   async jwt({ token, user }) {
-    // get user by email
-    const u = await db.user.findUnique({ where: { email: user.email! } });
+    const u = await db.user.findUnique({ where: { id: user.id } });
 
     if (!u) {
-      token.id = user!.id;
+      token.id = user.id;
       return token;
     }
 
     return {
       id: u.id,
       role: u.role,
+      email: u.email,
     };
   },
 
   redirect() {
-    return '/';
+    return '/foobar';
   },
 };
 

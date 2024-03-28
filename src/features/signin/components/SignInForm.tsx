@@ -19,13 +19,14 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
     resolver: signInResolver,
     defaultValues,
 
-    onSubmit(formValues) {
+    onSubmit(e, formValues) {
+      e.preventDefault();
       authenticate(formValues);
     },
   });
 
   const { authenticate } = useAuthenticate<SignInFormData>({
-    type: 'signin',
+    type: 'sign-in',
   });
 
   return (
