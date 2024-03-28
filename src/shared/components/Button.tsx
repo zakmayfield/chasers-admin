@@ -14,7 +14,8 @@ export const Button: FC<ButtonProps> = ({ className, action, content }) => {
     <button
       className={merge(`
         min-w-24 py-1 px-2 rounded-md border-2 
-        bg-green-700 hover:bg-green-600 border-green-600 hover:border-green-700 ${
+        bg-chasers-green hover:bg-chasers-green-light 
+        border-chasers-green-light hover:border-chasers-green-dark ${
           className ?? ''
         }`)}
       onClick={() => action?.()}
