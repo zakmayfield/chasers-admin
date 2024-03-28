@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { merge } from '@/utils';
-import { PiSpinnerGapThin } from 'react-icons/pi';
+import { SpinnerIcon } from '@/shared/components/Icons';
 
 interface SpinnerProps {
   className?: string;
@@ -10,8 +10,6 @@ interface SpinnerProps {
 
 export const Spinner: FC<SpinnerProps> = ({ className }) => {
   return (
-    <PiSpinnerGapThin
-      className={merge(`spinner text-2xl ${className ?? ''}`)}
-    />
+    <SpinnerIcon className={merge(`spinner text-2xl ${className ?? ''}`)} />
   );
 };

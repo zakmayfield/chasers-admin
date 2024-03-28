@@ -1,8 +1,8 @@
 'use client';
 
 import { FC } from 'react';
+import { InfoIcon } from '@/shared/components/Icons';
 import type { FieldError } from 'react-hook-form';
-import { PiInfoDuotone } from 'react-icons/pi';
 
 interface InputErrorProps {
   fieldError?: FieldError;
@@ -13,7 +13,7 @@ export const InputError: FC<InputErrorProps> = ({ fieldError }) => {
     <div aria-hidden={!!!fieldError} className='h-7 flex items-center'>
       {fieldError && (
         <div className='flex items-center gap-3'>
-          <PiInfoDuotone className='text-error' />
+          <InfoIcon className='text-error' />
           <p className='text-base text-error'>{fieldError.message}</p>
         </div>
       )}
