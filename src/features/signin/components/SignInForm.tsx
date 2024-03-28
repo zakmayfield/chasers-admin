@@ -3,7 +3,7 @@
 import { FC, useEffect } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { Button, Input, InputError } from '@/shared/components';
-import { useCustomForm } from '@/shared/hooks';
+import { useAuthenticate, useCustomForm } from '@/shared/hooks';
 import { signInResolver } from '@/shared/validators/resolvers';
 import type { SignInFormData } from '@/shared/types';
 
@@ -20,10 +20,12 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
     defaultValues,
 
     onSubmit(formValues) {
-      console.info({
-        formValues,
-      });
+      authenticate(formValues);
     },
+  });
+
+  const { authenticate } = useAuthenticate<SignInFormData>({
+    type: 'signin',
   });
 
   return (
