@@ -4,20 +4,20 @@ import { FormValues } from '@/shared/types';
 export const useAuthenticate = <T extends FormValues>({
   type,
 }: {
-  type: 'signin' | 'signup';
+  type: 'sign-in' | 'sign-up';
 }) => {
   const handleAuth = async (data: T) => {
-    console.log('from handleAuth');
     try {
       await signIn(type, {
         ...data,
       });
+      console.log('sign in response');
     } catch (err) {
       console.error(err);
     }
   };
 
-  const authenticate = (formValues: T) => handleAuth(formValues);
+  const authenticate = async (formValues: T) => await handleAuth(formValues);
 
   return {
     authenticate,
