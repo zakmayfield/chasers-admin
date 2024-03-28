@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import type { FieldError } from 'react-hook-form';
 import { PiInfoDuotone } from 'react-icons/pi';
 
@@ -9,10 +9,6 @@ interface InputErrorProps {
 }
 
 export const InputError: FC<InputErrorProps> = ({ fieldError }) => {
-  useEffect(() => {
-    console.log({ fieldError });
-  }, [fieldError]);
-
   return (
     <div aria-hidden={!!!fieldError} className='h-7 flex items-center'>
       {fieldError && (

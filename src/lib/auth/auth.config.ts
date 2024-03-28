@@ -28,10 +28,10 @@ const providers: NextAuthProviders = [
     name: 'Credentials',
     credentials: {
       email: {
-        label: 'Email',
+        label: 'username',
         type: 'text',
       },
-      password: { label: 'Password', type: 'password' },
+      password: { label: 'password', type: 'password' },
     },
     async authorize(credentials) {
       console.log({

@@ -1,7 +1,7 @@
 'use client';
 
-import { merge } from '@/utils';
 import { FC } from 'react';
+import { merge } from '@/utils';
 import { PiSpinnerGapThin } from 'react-icons/pi';
 
 interface SpinnerProps {
