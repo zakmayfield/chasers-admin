@@ -23,10 +23,9 @@ export const Button: FC<ButtonProps> = ({
       disabled={isLoading}
       onClick={() => action?.()}
       className={merge(`
-        min-w-24 p-2 h-12 text-center
-        rounded-md border-2
+        min-w-24 p-2 h-12 text-center rounded-md border-2
         bg-chasers-green hover:bg-chasers-green-light 
-        border-chasers-green-light  ${className ?? ''}`)}
+        border-chasers-green-light ${className ?? ''}`)}
     >
       {isLoading ? <Spinner /> : content}
     </button>
