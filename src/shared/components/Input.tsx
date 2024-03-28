@@ -19,7 +19,7 @@ export const Input: FC<InputProps> = ({ label, name, invalid, props }) => {
   return (
     <>
       <label htmlFor={name}>{label}</label>
-      <input aria-invalid={invalid} {...register(name)} {...props} />
+      <input id={name} aria-invalid={invalid} {...register(name)} {...props} />
     </>
   );
 };

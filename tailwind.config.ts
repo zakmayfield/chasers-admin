@@ -6,22 +6,20 @@ const config: Config = {
     extend: {
       colors: {
         chasers: {
-          primary: '',
-          secondary: '',
-          tertiary: '',
-          accent: '',
+          primary: '#1e293b', // slate-800
+          secondary: '#334155', // slate-700
+          tertiary: '#64748b', // slate-500
           green: {
-            lightest: '#2DB55C',
-            light: '#24AB52',
-            DEFAULT: '#1c9f49',
-            dark: '#168D3F',
-            darkest: '#118037',
+            lightest: '#1c9f49',
+            light: '#168D3F',
+            DEFAULT: '#118037',
+            dark: '#0B6E2D',
           },
         },
         error: {
-          light: '#fca5a5',
-          DEFAULT: '#f87171',
-          dark: '#ef4444',
+          light: '#fca5a5', // red-300
+          DEFAULT: '#f87171', // red-400
+          dark: '#ef4444', // red-500
         },
       },
     },

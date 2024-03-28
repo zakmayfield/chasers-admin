@@ -30,7 +30,7 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit}
-        className='max-w-lg p-6 mx-auto  rounded-lg'
+        className='max-w-lg p-6 mx-auto bg-chasers-primary rounded-lg'
       >
         <div className='m-6 flex flex-col gap-3'>
           <div className='flex flex-col gap-3'>
