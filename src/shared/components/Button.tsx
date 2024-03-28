@@ -25,6 +25,7 @@ export const Button: FC<ButtonProps> = ({
         bg-chasers-green hover:bg-chasers-green-light 
         border-chasers-green-light  ${className ?? ''}`)}
       onClick={() => action?.()}
+      disabled={isLoading}
     >
       {isLoading ? <Spinner /> : content}
     </button>
