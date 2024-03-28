@@ -11,7 +11,6 @@ export const useAuthenticate = <T extends FormValues>({
       await signIn(type, {
         ...data,
       });
-      console.log('sign in response');
     } catch (err) {
       console.error(err);
     }
