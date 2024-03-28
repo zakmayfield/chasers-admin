@@ -54,7 +54,14 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
             <InputError fieldError={methods.formState.errors.password} />
           </div>
 
-          <Button content='sign in' className='mt-3 p-2' />
+          <Button
+            content='sign in'
+            className='mt-3'
+            isLoading={
+              methods.formState.isSubmitted &&
+              methods.formState.isSubmitSuccessful
+            }
+          />
         </div>
       </form>
     </FormProvider>
