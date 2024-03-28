@@ -44,3 +44,7 @@ textarea {
   @apply placeholder:text-gray-500;
   @apply text-black;
 }
+
+.spinner {
+  @apply animate-spin mx-auto;
+}
