@@ -37,7 +37,7 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
             <Input
               label='username'
               name='username'
-              invalid={methods.formState.errors.username ? true : false}
+              invalid={!!methods.formState.errors.username}
               props={{ placeholder: 'username', required: true }}
             />
             <InputError fieldError={methods.formState.errors.username} />
@@ -47,7 +47,7 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
             <Input
               label='password'
               name='password'
-              invalid={methods.formState.errors.password ? true : false}
+              invalid={!!methods.formState.errors.password}
               props={{
                 placeholder: 'password',
                 type: 'password',

@@ -18,7 +18,7 @@ export const Input: FC<InputProps> = ({ label, name, invalid, props }) => {
   const { register } = useFormContext();
   return (
     <>
-      <div>{label}</div>
+      <label htmlFor={name}>{label}</label>
       <input aria-invalid={invalid} {...register(name)} {...props} />
     </>
   );
