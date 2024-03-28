@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { Button, Input, InputError } from '@/shared/components';
 import { useCustomForm } from '@/shared/hooks';
@@ -20,7 +20,7 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
     defaultValues,
 
     onSubmit(formValues) {
-      console.log({
+      console.info({
         formValues,
       });
     },

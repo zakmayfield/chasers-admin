@@ -1,6 +1,8 @@
 import { db } from '@/lib';
+import { compare } from 'bcryptjs';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { getUserByUsername, parseSignInData } from '@/utils/auth';
 import type { NextAuthOptions } from 'next-auth';
 
 //^ adapter
@@ -27,18 +29,36 @@ const providers: NextAuthProviders = [
     id: 'sign-in',
     name: 'Credentials',
     credentials: {
-      email: {
+      username: {
         label: 'username',
         type: 'text',
       },
       password: { label: 'password', type: 'password' },
     },
     async authorize(credentials) {
-      console.log({
-        credentials,
-      });
+      const formValues = {
+        ...credentials,
+      };
 
-      const user = null;
+      //^ parse & retrieve form data
+      const parsedFormValues = parseSignInData(formValues);
+      if (!parsedFormValues) {
+        return null;
+      }
+      const { username, password } = parsedFormValues;
+
+      //^ fetch user via parsed data
+      const user = await getUserByUsername(username);
+      if (!user) {
+        return null;
+      }
+
+      //^ password validation
+      const passwordMatch = await compare(password, user.password);
+
+      if (!passwordMatch) {
+        return null;
+      }
 
       return user;
     },
