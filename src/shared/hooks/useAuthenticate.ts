@@ -1,5 +1,5 @@
 import { signIn } from 'next-auth/react';
-import { FormValues } from '@/shared/types';
+import type { FormValues } from '@/shared/types';
 
 export const useAuthenticate = <T extends FormValues>({
   type,
