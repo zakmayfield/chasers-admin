@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { FormProvider } from 'react-hook-form';
-import { Button, Input } from '@/shared/components';
+import { Button, Input, InputError } from '@/shared/components';
 import { useCustomForm } from '@/shared/hooks';
 import { signInResolver } from '@/shared/validators/resolvers';
 import type { SignInFormData } from '@/shared/types';
@@ -15,30 +15,43 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
     password: '',
   };
 
-  const { methods } = useCustomForm<SignInFormData>({
+  const { methods, handleSubmit } = useCustomForm<SignInFormData>({
     resolver: signInResolver,
     defaultValues,
 
-    onSubmit() {
-      console.log('submit');
+    onSubmit(formValues) {
+      console.log({
+        formValues,
+      });
     },
   });
 
   return (
     <FormProvider {...methods}>
-      <form className='max-w-lg p-6 mx-auto border rounded-lg'>
-        <div className='flex flex-col gap-3 m-6'>
-          <Input
-            label='username'
-            name='username'
-            props={{ placeholder: 'username' }}
-          />
-          <Input
-            label='password'
-            name='password'
-            props={{ placeholder: 'password', type: 'password' }}
-          />
-          <Button content='sign in' className='mt-6 p-2' />
+      <form
+        onSubmit={handleSubmit}
+        className='max-w-lg p-6 mx-auto  rounded-lg'
+      >
+        <div className='m-6 flex flex-col gap-3'>
+          <div className='flex flex-col gap-3'>
+            <Input
+              label='username'
+              name='username'
+              props={{ placeholder: 'username' }}
+            />
+            <InputError fieldError={methods.formState.errors.username} />
+          </div>
+
+          <div className='flex flex-col gap-3'>
+            <Input
+              label='password'
+              name='password'
+              props={{ placeholder: 'password', type: 'password' }}
+            />
+            <InputError fieldError={methods.formState.errors.password} />
+          </div>
+
+          <Button content='sign in' className='mt-3 p-2' />
         </div>
       </form>
     </FormProvider>
