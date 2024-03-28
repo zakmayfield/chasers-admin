@@ -9,8 +9,6 @@ export async function middleware(req: NextRequest) {
     secret,
   });
 
-  console.log('token from mw ---', token);
-
   if (!token) {
     return NextResponse.redirect(new URL('/', req.nextUrl));
   }

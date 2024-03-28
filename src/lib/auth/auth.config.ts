@@ -1,3 +1,4 @@
+import { getUserByEmail } from './../../utils/auth/user';
 import { db } from '@/lib';
 import { compare } from 'bcryptjs';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
@@ -49,16 +50,12 @@ const providers: NextAuthProviders = [
 
       //^ fetch user via parsed data
       const user = await getUserByUsername(username);
-      console.log({ user });
-
       if (!user) {
         return null;
       }
 
       //^ password validation
       const passwordMatch = await compare(password, user.password);
-      console.log({ passwordMatch });
-
       if (!passwordMatch) {
         return null;
       }
@@ -74,10 +71,6 @@ const providers: NextAuthProviders = [
       password: { label: 'Password', type: 'password' },
     },
     async authorize(credentials) {
-      console.log({
-        credentials,
-      });
-
       const user = null;
 
       return user;
@@ -99,10 +92,13 @@ const callbacks: NextAuthCallbacks = {
   },
 
   async jwt({ token, user }) {
-    const u = await db.user.findUnique({ where: { id: user.id } });
+    const u = await getUserByEmail(token.email);
 
     if (!u) {
       token.id = user.id;
+      token.role = user.role;
+      token.email = user.email;
+
       return token;
     }
 
@@ -114,7 +110,7 @@ const callbacks: NextAuthCallbacks = {
   },
 
   redirect() {
-    return '/foobar';
+    return '/';
   },
 };
 
