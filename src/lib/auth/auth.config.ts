@@ -1,9 +1,12 @@
-import { getUserByEmail } from './../../utils/auth/user';
 import { db } from '@/lib';
 import { compare } from 'bcryptjs';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { getUserByUsername, parseSignInData } from '@/utils/auth';
+import {
+  getUserByUsername,
+  parseSignInData,
+  getUserByEmail,
+} from '@/utils/auth';
 import type { NextAuthOptions } from 'next-auth';
 
 //^ adapter
