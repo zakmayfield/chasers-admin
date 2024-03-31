@@ -1,11 +1,11 @@
 'use client';
 
 import { FormProvider, UseFormReturn } from 'react-hook-form';
-import { FormValues } from '../types';
+import { FormEventType, FormValues } from '@/shared/types';
 
 type FormLayoutProps<T extends FormValues> = {
   children: React.ReactNode;
-  handleSubmit: () => void;
+  handleSubmit: (e: FormEventType) => void;
   methods: UseFormReturn<T, any, undefined>;
 };
 

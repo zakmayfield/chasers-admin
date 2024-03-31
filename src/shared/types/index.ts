@@ -12,4 +12,5 @@ export type SignUpFormData = z.infer<typeof SignUpValidator>;
 
 export type FormValues = FieldValues;
 
-export type Event = FormEvent<HTMLFormElement>;
+export type FormEventType = FormEvent<HTMLFormElement>;
+export type ButtonEventType = React.MouseEvent<HTMLButtonElement>;

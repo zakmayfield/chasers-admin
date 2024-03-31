@@ -1,5 +1,5 @@
 import { DefaultValues, Resolver, useForm } from 'react-hook-form';
-import type { FormValues } from '@/shared/types';
+import type { FormEventType, FormValues } from '@/shared/types';
 
 export const useCustomForm = <T extends FormValues>({
   onSubmit,
@@ -15,7 +15,8 @@ export const useCustomForm = <T extends FormValues>({
     defaultValues,
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEventType) => {
+    e.preventDefault();
     const formValues = methods.getValues();
     methods.handleSubmit(() => onSubmit(formValues))();
   };
