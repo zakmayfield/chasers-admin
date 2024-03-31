@@ -4,7 +4,13 @@ import { FC } from 'react';
 import { useAuthenticate, useCustomForm } from '@/shared/hooks';
 import { SignUpFormData } from '@/shared/types';
 import { signUpResolver } from '@/shared/validators/resolvers';
-import { FormLayout } from '@/shared/components';
+import {
+  Button,
+  FormLayout,
+  Input,
+  InputError,
+  InputLayout,
+} from '@/shared/components';
 
 interface SignUpFormProps {}
 
@@ -30,7 +36,43 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
   return (
     <div>
       <FormLayout methods={methods} handleSubmit={handleSubmit}>
-        <div></div>
+        <InputLayout>
+          <Input
+            label='username'
+            name='username'
+            invalid={methods.formState.errors.username}
+            props={{ placeholder: 'username', required: true }}
+          />
+          <InputError fieldError={methods.formState.errors.username} />
+        </InputLayout>
+        <InputLayout>
+          <Input
+            label='email'
+            name='email'
+            invalid={methods.formState.errors.email}
+            props={{ placeholder: 'email', required: true }}
+          />
+          <InputError fieldError={methods.formState.errors.email} />
+        </InputLayout>
+
+        <InputLayout>
+          <Input
+            label='password'
+            name='password'
+            invalid={methods.formState.errors.password}
+            props={{ placeholder: 'password', required: true }}
+          />
+          <InputError fieldError={methods.formState.errors.password} />
+        </InputLayout>
+
+        <Button
+          content='create account'
+          className='mt-3'
+          isLoading={
+            methods.formState.isSubmitted &&
+            methods.formState.isSubmitSuccessful
+          }
+        />
       </FormLayout>
     </div>
   );
