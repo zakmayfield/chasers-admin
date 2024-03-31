@@ -19,8 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={quicksand.className}>
-        <main>
+      <body className={`${quicksand.className}`}>
+        <main className='min-h-screen'>
           <Providers>
             {children}
             <ReactQueryDevtools initialIsOpen={false} />

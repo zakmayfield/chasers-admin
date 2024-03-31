@@ -149,6 +149,7 @@ model User {
   isApproved        Boolean            @default(false)
   password          String
   role              Role               @default(USER)
+  username          String?            @unique
   Account           Account[]
   Cart              Cart?
   Company           Company?

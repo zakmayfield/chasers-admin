@@ -7,3 +7,44 @@
     text-wrap: balance;
   }
 }
+
+* {
+  @apply box-border;
+  @apply text-white;
+  @apply text-lg;
+}
+
+body {
+  @apply bg-chasers-secondary;
+}
+
+h1,
+h2 {
+  @apply text-3xl;
+}
+
+h3,
+h4 {
+  @apply text-2xl;
+}
+h5,
+h6 {
+  @apply text-xl;
+}
+
+form {
+  @apply bg-chasers-primary;
+  @apply rounded-lg;
+}
+
+input,
+textarea {
+  @apply p-2;
+  @apply rounded-md;
+  @apply placeholder:text-gray-500;
+  @apply text-black;
+}
+
+.spinner {
+  @apply animate-spin mx-auto;
+}
