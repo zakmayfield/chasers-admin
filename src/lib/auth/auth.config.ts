@@ -6,8 +6,13 @@ import {
   getUserByUsername,
   parseSignInData,
   getUserByEmail,
+  parseSignUpData,
+  createUser,
+  hashPassword,
+  checkIfUserExists,
 } from '@/utils/auth';
 import type { NextAuthOptions } from 'next-auth';
+import { CreateUser, Roles } from '@/shared/types';
 
 //^ adapter
 type NextAuthAdapter = NextAuthOptions['adapter'];
@@ -30,7 +35,7 @@ const pages: NextAuthPages = {
 type NextAuthProviders = NextAuthOptions['providers'];
 const providers: NextAuthProviders = [
   CredentialsProvider({
-    id: 'sign-in',
+    id: 'signin',
     name: 'Credentials',
     credentials: {
       username: {
@@ -67,14 +72,45 @@ const providers: NextAuthProviders = [
     },
   }),
   CredentialsProvider({
-    id: 'sign-up',
+    id: 'signup',
     name: 'Credentials',
     credentials: {
+      username: { label: 'Username', type: 'text' },
       email: { label: 'Email', type: 'text' },
       password: { label: 'Password', type: 'password' },
     },
     async authorize(credentials) {
-      const user = null;
+      const formValues = {
+        ...credentials,
+      };
+
+      //^ parse & retrieve form data
+      const parsedFormValues = parseSignUpData(formValues);
+      if (!parsedFormValues) {
+        throw new Error('Invalid credentials format');
+      }
+      const { username, email, password } = parsedFormValues;
+
+      //^ credentials db validation
+      // - is email authorized to create an account
+      // - is unique username
+      await checkIfUserExists({ email });
+
+      //^ hash
+      const hashedPassword = await hashPassword(password);
+
+      //^ create user
+      const userPayload: CreateUser = {
+        username,
+        email,
+        password: hashedPassword,
+        role: Roles.ADMIN,
+      };
+
+      const user = await createUser(userPayload);
+      if (!user) {
+        throw new Error(`There was an issue creating the user`);
+      }
 
       return user;
     },

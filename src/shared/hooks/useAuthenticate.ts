@@ -4,7 +4,7 @@ import type { FormValues } from '@/shared/types';
 export const useAuthenticate = <T extends FormValues>({
   type,
 }: {
-  type: 'sign-in' | 'sign-up';
+  type: 'signin' | 'signup';
 }) => {
   const handleAuth = async (data: T) => {
     try {

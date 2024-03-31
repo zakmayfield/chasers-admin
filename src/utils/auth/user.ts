@@ -1,6 +1,7 @@
 import { db } from '@/lib';
-import { OptionalSignInValues } from '@/shared/types';
-import { SignInValidator } from '@/shared/validators';
+import { CreateUser, OptionalSignInValues } from '@/shared/types';
+import { SignInValidator, SignUpValidator } from '@/shared/validators';
+import { genSalt, hash } from 'bcryptjs';
 
 export const getUserByUsername = async (username: string) => {
   try {
@@ -42,8 +43,7 @@ export const parseSignInData = (formValues: OptionalSignInValues) => {
   const parsed = SignInValidator.safeParse(formValues);
 
   if (!parsed.success) {
-    // throw new Error(parsed.error.message);
-    return null;
+    throw new Error('Invalid credentials format');
   }
 
   const {
@@ -54,4 +54,57 @@ export const parseSignInData = (formValues: OptionalSignInValues) => {
     username,
     password,
   };
+};
+
+export const parseSignUpData = (formValues: OptionalSignInValues) => {
+  const parsed = SignUpValidator.safeParse(formValues);
+
+  if (!parsed.success) {
+    throw new Error('Invalid credentials format');
+  }
+
+  const {
+    data: { username, email, password },
+  } = parsed;
+
+  return {
+    username,
+    email,
+    password,
+  };
+};
+
+export const createUser = async (userPayload: CreateUser) => {
+  try {
+    const user = await db.user.create({
+      data: {
+        username: userPayload.username,
+        email: userPayload.email,
+        password: userPayload.password,
+        role: userPayload.role,
+      },
+    });
+
+    return user;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const checkIfUserExists = async (where: { email: string }) => {
+  const existingUser = await db.user.findUnique({
+    where,
+    select: { id: true },
+  });
+
+  if (existingUser) {
+    throw Error('Seems like this user already exists');
+  }
+};
+
+export const hashPassword = async (password: string) => {
+  const salt = await genSalt(12);
+  const hashedPassword = await hash(password, salt);
+
+  return hashedPassword;
 };

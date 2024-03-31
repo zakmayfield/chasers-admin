@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Account {
-  id                String  @id
+  id                String  @id @default(cuid())
   userId            String
   type              String
   provider          String
@@ -26,7 +26,7 @@ model Account {
 }
 
 model BillingAddress {
-  id            String  @id
+  id            String  @id @default(cuid())
   streetAddress String
   unit          String?
   city          String
@@ -37,14 +37,14 @@ model BillingAddress {
 }
 
 model Cart {
-  id          String        @id
+  id          String        @id @default(cuid())
   userId      String        @unique
   User        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   UnitsOnCart UnitsOnCart[]
 }
 
 model Company {
-  id                  String           @id
+  id                  String           @id @default(cuid())
   name                String
   userId              String           @unique
   accountPayableEmail String
@@ -55,7 +55,7 @@ model Company {
 }
 
 model Contact {
-  id          String  @id
+  id          String  @id @default(cuid())
   name        String
   position    String?
   phoneNumber String
@@ -64,7 +64,7 @@ model Contact {
 }
 
 model Favorite {
-  id        String   @id
+  id        String   @id @default(cuid())
   juiceId   String
   userId    String
   createdAt DateTime @default(now())
@@ -75,7 +75,7 @@ model Favorite {
 }
 
 model Order {
-  id            String          @id
+  id            String          @id @default(cuid())
   createdAt     DateTime        @default(now())
   userId        String
   User          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -83,7 +83,7 @@ model Order {
 }
 
 model OrderLineItem {
-  id       String @id
+  id       String @id @default(cuid())
   orderId  String
   unitId   String
   quantity Int
@@ -92,7 +92,7 @@ model OrderLineItem {
 }
 
 model Product {
-  id       String     @id
+  id       String     @id @default(cuid())
   name     String
   category String
   Favorite Favorite[]
@@ -100,7 +100,7 @@ model Product {
 }
 
 model Session {
-  id           String   @id
+  id           String   @id @default(cuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
@@ -108,7 +108,7 @@ model Session {
 }
 
 model ShippingAddress {
-  id                   String  @id
+  id                   String  @id @default(cuid())
   streetAddress        String
   unit                 String?
   city                 String
@@ -120,7 +120,7 @@ model ShippingAddress {
 }
 
 model Unit {
-  id            String          @id
+  id            String          @id @default(cuid())
   price         Float
   code          String
   productId     String
@@ -142,7 +142,7 @@ model UnitsOnCart {
 }
 
 model User {
-  id                String             @id
+  id                String             @id @default(cuid())
   email             String             @unique
   emailVerified     DateTime?
   image             String?
@@ -171,7 +171,7 @@ model VerificationToken {
 }
 
 model Permission {
-  id             String           @id
+  id             String           @id @default(cuid())
   name           String           @unique
   description    String?
   UserPermission UserPermission[]

@@ -1,12 +1,12 @@
 'use client';
 
 import { FC } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { FieldError, useFormContext } from 'react-hook-form';
 
 interface InputProps {
   label: string;
   name: string;
-  invalid: boolean;
+  invalid?: FieldError | undefined;
   props: {
     placeholder: string;
     type?: string;
@@ -19,7 +19,12 @@ export const Input: FC<InputProps> = ({ label, name, invalid, props }) => {
   return (
     <>
       <label htmlFor={name}>{label}</label>
-      <input id={name} aria-invalid={invalid} {...register(name)} {...props} />
+      <input
+        id={name}
+        aria-invalid={!!invalid}
+        {...register(name)}
+        {...props}
+      />
     </>
   );
 };

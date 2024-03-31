@@ -1,7 +1,13 @@
 'use client';
 
 import { FC } from 'react';
-import { Button, FormLayout, Input, InputError } from '@/shared/components';
+import {
+  Button,
+  FormLayout,
+  Input,
+  InputError,
+  InputLayout,
+} from '@/shared/components';
 import { useAuthenticate, useCustomForm } from '@/shared/hooks';
 import { signInResolver } from '@/shared/validators/resolvers';
 import type { SignInFormData } from '@/shared/types';
@@ -24,27 +30,27 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
   });
 
   const { authenticate } = useAuthenticate<SignInFormData>({
-    type: 'sign-in',
+    type: 'signin',
   });
 
   return (
     <div>
       <FormLayout methods={methods} handleSubmit={handleSubmit}>
-        <div className='flex flex-col gap-3'>
+        <InputLayout>
           <Input
             label='username'
             name='username'
-            invalid={!!methods.formState.errors.username}
+            invalid={methods.formState.errors.username}
             props={{ placeholder: 'username', required: true }}
           />
           <InputError fieldError={methods.formState.errors.username} />
-        </div>
+        </InputLayout>
 
-        <div className='flex flex-col gap-3'>
+        <InputLayout>
           <Input
             label='password'
             name='password'
-            invalid={!!methods.formState.errors.password}
+            invalid={methods.formState.errors.password}
             props={{
               placeholder: 'password',
               type: 'password',
@@ -52,7 +58,7 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
             }}
           />
           <InputError fieldError={methods.formState.errors.password} />
-        </div>
+        </InputLayout>
 
         <Button
           content='sign in'
