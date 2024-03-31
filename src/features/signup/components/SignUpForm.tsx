@@ -30,7 +30,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
   });
 
   const { authenticate } = useAuthenticate<SignUpFormData>({
-    type: 'sign-up',
+    type: 'signup',
   });
 
   return (
@@ -60,7 +60,11 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
             label='password'
             name='password'
             invalid={methods.formState.errors.password}
-            props={{ placeholder: 'password', required: true }}
+            props={{
+              placeholder: 'password',
+              required: true,
+              type: 'password',
+            }}
           />
           <InputError fieldError={methods.formState.errors.password} />
         </InputLayout>

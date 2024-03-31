@@ -30,7 +30,7 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
   });
 
   const { authenticate } = useAuthenticate<SignInFormData>({
-    type: 'sign-in',
+    type: 'signin',
   });
 
   return (
