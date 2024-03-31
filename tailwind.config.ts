@@ -6,6 +6,7 @@ import {
 } from 'tailwindcss/types/config';
 
 const padding: ResolvableTo<KeyValuePair<string, string>> | undefined = {
+  'comfy-xs': '1rem',
   'comfy-sm': '1.5rem',
   'comfy-md': '3rem',
   'comfy-lg': '4rem',
