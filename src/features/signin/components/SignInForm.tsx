@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import {
   Button,
-  FormLayout,
+  Form,
   Input,
   InputError,
   InputLayout,
@@ -35,7 +35,7 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
 
   return (
     <div>
-      <FormLayout methods={methods} handleSubmit={handleSubmit}>
+      <Form methods={methods} handleSubmit={handleSubmit}>
         <InputLayout>
           <Input
             label='username'
@@ -68,7 +68,7 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
             methods.formState.isSubmitSuccessful
           }
         />
-      </FormLayout>
+      </Form>
     </div>
   );
 };
