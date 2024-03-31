@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from 'react';
 import { useAuthenticate, useCustomForm } from '@/shared/hooks';
 import { SignUpFormData } from '@/shared/types';
@@ -26,8 +28,10 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
   });
 
   return (
-    <FormLayout methods={methods} handleSubmit={handleSubmit}>
-      <div></div>
-    </FormLayout>
+    <div>
+      <FormLayout methods={methods} handleSubmit={handleSubmit}>
+        <div></div>
+      </FormLayout>
+    </div>
   );
 };
