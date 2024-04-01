@@ -12,9 +12,7 @@ export const Container: FC<ContainerProps> = ({ children, className }) => {
   return (
     <div
       className={merge(
-        `border min-w-xs inline-block rounded-smoother p-comfy-sm ${
-          className ?? ''
-        }`
+        `min-w-xs inline-block rounded-smoother p-comfy-sm ${className ?? ''}`
       )}
     >
       {children}
