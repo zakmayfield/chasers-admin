@@ -11,7 +11,7 @@ export default function Page() {
   return (
     <>
       <ContainerFull className='border'>
-        <FlexRow className='border-0'>
+        <FlexRow>
           <Container className='border'>
             <h3>
               Container <span className='text-slate-300'>(auto)</span>
