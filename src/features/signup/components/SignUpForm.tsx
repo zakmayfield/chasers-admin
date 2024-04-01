@@ -35,11 +35,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
 
   return (
     <div>
-      <Form
-        methods={methods}
-        handleSubmit={handleSubmit}
-        classname='p-comfy-md'
-      >
+      <Form methods={methods} handleSubmit={handleSubmit}>
         <InputLayout>
           <Input
             label='username'

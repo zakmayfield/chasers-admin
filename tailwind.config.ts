@@ -1,27 +1,7 @@
 import type { Config } from 'tailwindcss';
-import {
-  CustomThemeConfig,
-  KeyValuePair,
-  ResolvableTo,
-} from 'tailwindcss/types/config';
+import { PartialConfig, TailwindKeyValue } from '@/types';
 
-const padding: ResolvableTo<KeyValuePair<string, string>> | undefined = {
-  'comfy-xs': '1rem',
-  'comfy-sm': '1.5rem',
-  'comfy-md': '3rem',
-  'comfy-lg': '4rem',
-  'comfy-xl': '6rem',
-  'comfy-x-sm': '0.75rem',
-  'comfy-x-md': '1.5rem',
-  'comfy-x-lg': '3rem',
-  'comfy-x-xl': '6rem',
-  'comfy-y-sm': '0.75rem',
-  'comfy-y-md': '1.5rem',
-  'comfy-y-lg': '3rem',
-  'comfy-y-xl': '6rem',
-};
-
-const colors: Partial<CustomThemeConfig> | undefined = {
+export const colors: PartialConfig = {
   chasers: {
     primary: '#1e293b', // slate-800
     secondary: '#334155', // slate-700
@@ -40,12 +20,35 @@ const colors: Partial<CustomThemeConfig> | undefined = {
   },
 };
 
+export const padding: TailwindKeyValue = {
+  'comfy-xs': '1rem',
+  'comfy-sm': '1.5rem',
+  'comfy-md': '3rem',
+  'comfy-lg': '4rem',
+  'comfy-xl': '6rem',
+  'comfy-x-sm': '0.75rem',
+  'comfy-x-md': '1.5rem',
+  'comfy-x-lg': '3rem',
+  'comfy-x-xl': '6rem',
+  'comfy-y-sm': '0.75rem',
+  'comfy-y-md': '1.5rem',
+  'comfy-y-lg': '3rem',
+  'comfy-y-xl': '6rem',
+};
+
+export const borderRadius: TailwindKeyValue = {
+  smooth: '0.375rem',
+  smoother: '0.5rem',
+  smoothest: ' 0.75rem',
+};
+
 const config: Config = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       colors,
       padding,
+      borderRadius,
     },
   },
   plugins: [],

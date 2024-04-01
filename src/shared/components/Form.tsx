@@ -21,7 +21,9 @@ export const Form = <T extends FormValues>({
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit}
-        className={merge(`max-w-lg mx-auto p-6 ${classname ?? ''}`)}
+        className={merge(
+          `max-w-lg mx-auto p-comfy-sm rounded-smooth  ${classname ?? ''}`
+        )}
       >
         <div className='flex flex-col gap-3'>{children}</div>
       </form>
