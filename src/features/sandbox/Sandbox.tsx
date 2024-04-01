@@ -1,4 +1,10 @@
-import { ContainerFull, ContainerLg, ContainerSm } from '@/shared/components';
+import {
+  Container,
+  ContainerFull,
+  ContainerLg,
+  ContainerMd,
+  ContainerSm,
+} from '@/shared/components';
 import { FC } from 'react';
 
 interface SandboxProps {}
@@ -7,16 +13,19 @@ export const Sandbox: FC<SandboxProps> = ({}) => {
   return (
     <div>
       <div className='w-full flex items-center justify-center'>
-        <ContainerFull>
-          <ContainerLg>
-            <h1>testing container</h1>
-            <p>body</p>
-          </ContainerLg>
-
-          <ContainerSm className='mt-6'>
-            <h3>aside</h3>
-            <p>body</p>
+        <ContainerFull className='flex flex-col gap-6'>
+          <ContainerSm>
+            <h3>ContainerSm</h3>
           </ContainerSm>
+          <ContainerMd>
+            <h3>ContainerMd</h3>
+          </ContainerMd>
+          <ContainerLg>
+            <h3>ContainerLg</h3>
+          </ContainerLg>
+          <ContainerFull>
+            <h3>ContainerFull</h3>
+          </ContainerFull>
         </ContainerFull>
       </div>
     </div>

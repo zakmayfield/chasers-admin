@@ -8,47 +8,42 @@ interface ContainerProps {
   className?: string;
 }
 
-export const ContainerSm: FC<ContainerProps> = ({ children, className }) => {
+export const Container: FC<ContainerProps> = ({ children, className }) => {
   return (
     <div
       className={merge(
-        `max-w-md w-full border rounded-smoother p-comfy-sm ${className ?? ''}`
+        `border inline-block rounded-smoother p-comfy-sm ${className ?? ''}`
       )}
     >
       {children}
     </div>
+  );
+};
+export const ContainerSm: FC<ContainerProps> = ({ children, className }) => {
+  return (
+    <Container className={merge(`max-w-md w-full ${className ?? ''}`)}>
+      {children}
+    </Container>
   );
 };
 export const ContainerMd: FC<ContainerProps> = ({ children, className }) => {
   return (
-    <div
-      className={merge(
-        `max-w-xl w-full border rounded-smoother p-comfy-sm ${className ?? ''}`
-      )}
-    >
+    <Container className={merge(`max-w-xl w-full ${className ?? ''}`)}>
       {children}
-    </div>
+    </Container>
   );
 };
 export const ContainerLg: FC<ContainerProps> = ({ children, className }) => {
   return (
-    <div
-      className={merge(
-        `max-w-3xl w-full border rounded-smoother p-comfy-sm ${className ?? ''}`
-      )}
-    >
+    <Container className={merge(`max-w-3xl w-full ${className ?? ''}`)}>
       {children}
-    </div>
+    </Container>
   );
 };
 export const ContainerFull: FC<ContainerProps> = ({ children, className }) => {
   return (
-    <div
-      className={merge(
-        `w-full border rounded-smoother p-comfy-sm ${className ?? ''}`
-      )}
-    >
+    <Container className={merge(`w-full ${className ?? ''}`)}>
       {children}
-    </div>
+    </Container>
   );
 };
