@@ -3,10 +3,12 @@
 import { FC } from 'react';
 import {
   Button,
+  Container,
   Form,
   Input,
   InputError,
   InputLayout,
+  Spinner,
 } from '@/shared/components';
 import { useAuthenticate, useCustomForm } from '@/shared/hooks';
 import { signInResolver } from '@/shared/validators/resolvers';
@@ -60,14 +62,14 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
           <InputError fieldError={methods.formState.errors.password} />
         </InputLayout>
 
-        <Button
-          content='sign in'
-          className='mt-3'
-          isLoading={
-            methods.formState.isSubmitted &&
-            methods.formState.isSubmitSuccessful
-          }
-        />
+        {methods.formState.isSubmitted &&
+        methods.formState.isSubmitSuccessful ? (
+          <Container className='h-12 flex items-center justify-center'>
+            <Spinner className='text-3xl' />
+          </Container>
+        ) : (
+          <Button content='sign in' />
+        )}
       </Form>
     </div>
   );

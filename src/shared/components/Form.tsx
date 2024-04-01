@@ -22,7 +22,9 @@ export const Form = <T extends FormValues>({
       <form
         onSubmit={handleSubmit}
         className={merge(
-          `max-w-lg mx-auto p-comfy-sm rounded-smooth  ${classname ?? ''}`
+          `max-w-lg mx-auto p-comfy-md rounded-smoother border  ${
+            classname ?? ''
+          }`
         )}
       >
         <div className='flex flex-col gap-3'>{children}</div>
