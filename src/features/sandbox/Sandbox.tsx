@@ -1,12 +1,3 @@
-import {
-  Container,
-  ContainerFull,
-  ContainerLg,
-  ContainerMd,
-  ContainerSm,
-  FlexCol,
-  FlexRow,
-} from '@/shared/components';
 import Link from 'next/link';
 import { FC } from 'react';
 

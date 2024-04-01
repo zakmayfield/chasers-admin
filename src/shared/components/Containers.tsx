@@ -42,7 +42,7 @@ export const ContainerLg: FC<ContainerProps> = ({ children, className }) => {
 };
 export const ContainerFull: FC<ContainerProps> = ({ children, className }) => {
   return (
-    <Container className={merge(`w-full ${className ?? ''}`)}>
+    <Container className={merge(`block ${className ?? ''}`)}>
       {children}
     </Container>
   );

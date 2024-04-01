@@ -7,13 +7,19 @@ interface FlexProps {
   className?: string;
 }
 
-export const FlexRow: FC<FlexProps> = ({ children }) => {
+export const FlexRow: FC<FlexProps> = ({ children, className }) => {
   return (
-    <Container className={merge(`p-0 flex gap-6 flex-wrap ${children}`)}>
+    <div
+      className={merge(`rounded-smoother flex gap-6 flex-wrap ${className}`)}
+    >
       {children}
-    </Container>
+    </div>
   );
 };
-export const FlexCol: FC<FlexProps> = ({ children }) => {
-  return <Container className='p-0 flex flex-col gap-6'>{children}</Container>;
+export const FlexCol: FC<FlexProps> = ({ children, className }) => {
+  return (
+    <div className={merge(`rounded-smoother flex flex-col gap-6 ${className}`)}>
+      {children}
+    </div>
+  );
 };

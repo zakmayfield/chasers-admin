@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={`${quicksand.className}`}>
         <main>
           <Providers>
-            <PageLayout>{children}</PageLayout>
+            <PageLayout className='border'>{children}</PageLayout>
             <ReactQueryDevtools initialIsOpen={false} />
           </Providers>
         </main>
