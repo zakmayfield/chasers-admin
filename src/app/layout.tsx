@@ -3,6 +3,7 @@ import { Quicksand } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Providers } from '@/lib';
+import { PageLayout } from '@/shared/components';
 import './globals.css';
 
 const quicksand = Quicksand({ subsets: ['latin'] });
@@ -20,9 +21,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${quicksand.className}`}>
-        <main className='min-h-screen'>
+        <main>
           <Providers>
-            {children}
+            <PageLayout>{children}</PageLayout>
             <ReactQueryDevtools initialIsOpen={false} />
           </Providers>
         </main>
