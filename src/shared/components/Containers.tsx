@@ -12,7 +12,9 @@ export const Container: FC<ContainerProps> = ({ children, className }) => {
   return (
     <div
       className={merge(
-        `border inline-block rounded-smoother p-comfy-sm ${className ?? ''}`
+        `border min-w-xs inline-block rounded-smoother p-comfy-sm ${
+          className ?? ''
+        }`
       )}
     >
       {children}
@@ -21,21 +23,21 @@ export const Container: FC<ContainerProps> = ({ children, className }) => {
 };
 export const ContainerSm: FC<ContainerProps> = ({ children, className }) => {
   return (
-    <Container className={merge(`max-w-md w-full ${className ?? ''}`)}>
+    <Container className={merge(`max-w-md w-full block ${className ?? ''}`)}>
       {children}
     </Container>
   );
 };
 export const ContainerMd: FC<ContainerProps> = ({ children, className }) => {
   return (
-    <Container className={merge(`max-w-xl w-full ${className ?? ''}`)}>
+    <Container className={merge(`max-w-xl w-full block ${className ?? ''}`)}>
       {children}
     </Container>
   );
 };
 export const ContainerLg: FC<ContainerProps> = ({ children, className }) => {
   return (
-    <Container className={merge(`max-w-3xl w-full ${className ?? ''}`)}>
+    <Container className={merge(`max-w-3xl w-full block ${className ?? ''}`)}>
       {children}
     </Container>
   );
