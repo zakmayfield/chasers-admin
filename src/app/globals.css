@@ -34,7 +34,6 @@ h6 {
 
 form {
   @apply bg-chasers-primary;
-  @apply rounded-lg;
 }
 
 input,

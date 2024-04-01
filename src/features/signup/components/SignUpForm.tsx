@@ -6,7 +6,7 @@ import { SignUpFormData } from '@/shared/types';
 import { signUpResolver } from '@/shared/validators/resolvers';
 import {
   Button,
-  FormLayout,
+  Form,
   Input,
   InputError,
   InputLayout,
@@ -35,7 +35,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
 
   return (
     <div>
-      <FormLayout methods={methods} handleSubmit={handleSubmit}>
+      <Form methods={methods} handleSubmit={handleSubmit}>
         <InputLayout>
           <Input
             label='username'
@@ -77,7 +77,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
             methods.formState.isSubmitSuccessful
           }
         />
-      </FormLayout>
+      </Form>
     </div>
   );
 };

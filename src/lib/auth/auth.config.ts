@@ -149,7 +149,7 @@ const callbacks: NextAuthCallbacks = {
   },
 
   redirect() {
-    return '/';
+    return '/dashboard';
   },
 };
 
