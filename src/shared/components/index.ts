@@ -1,6 +1,7 @@
 export * from './Button';
 export * from './Containers';
 export * from './Form';
+export * from './Flex';
 export * from './Input';
 export * from './InputLayout';
 export * from './InputError';
