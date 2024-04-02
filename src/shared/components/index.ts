@@ -8,4 +8,5 @@ export * from './InputLayout';
 export * from './InputError';
 export * from './StyledLink';
 export * from './PageLayout';
+export * from './Pagination';
 export * from './Spinner';
