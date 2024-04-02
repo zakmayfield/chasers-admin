@@ -2,7 +2,7 @@ export * from './Button';
 export * from './Containers';
 export * from './Form';
 export * from './Flex';
-export * from './Grid';
+export * from './GridLayout';
 export * from './Input';
 export * from './InputLayout';
 export * from './InputError';
