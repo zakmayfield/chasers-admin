@@ -18,11 +18,14 @@ export const Dashboard: FC<DashboardProps> = ({ email }) => {
     <ContainerFull className='border bg-chasers-primary p-comfy-lg'>
       <FlexRow className=''>
         <Overview />
-        <ContainerMd className='border'>
-          <div>thing 1</div>
-        </ContainerMd>
         <ContainerSm className='border'>
-          <div>thing 2</div>
+          <div>new orders</div>
+        </ContainerSm>
+        <ContainerSm className='border'>
+          <div>new user</div>
+        </ContainerSm>
+        <ContainerSm className='border'>
+          <div>invoice</div>
         </ContainerSm>
       </FlexRow>
     </ContainerFull>
