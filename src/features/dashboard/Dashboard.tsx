@@ -5,11 +5,9 @@ import { NewOrders, NewUsers, Overview } from './components';
 import { DashboardLayout } from './components';
 import { ContainerFull, PageHeader } from '@/shared/components';
 
-interface DashboardProps {
-  email: string;
-}
+interface DashboardProps {}
 
-export const Dashboard: FC<DashboardProps> = ({ email }) => {
+export const Dashboard: FC<DashboardProps> = ({}) => {
   return (
     <DashboardLayout>
       <PageHeader header='Dashboard' />
