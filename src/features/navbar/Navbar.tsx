@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  Container,
-  ContainerFull,
-  FlexCol,
-  FlexRow,
-  StyledLink,
-} from '@/shared/components';
+import { Container, FlexRow, StyledLink } from '@/shared/components';
 import { merge } from '@/utils';
 import { FC } from 'react';
 

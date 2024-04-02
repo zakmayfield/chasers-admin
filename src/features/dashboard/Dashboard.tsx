@@ -3,8 +3,7 @@
 import { FC } from 'react';
 import { NewOrders, NewUsers, Overview } from './components';
 import { DashboardLayout } from './components';
-import { ContainerFull, Logo, PageHeader } from '@/shared/components';
-import { Navbar } from '..';
+import { ContainerFull, PageHeader } from '@/shared/components';
 
 interface DashboardProps {
   email: string;

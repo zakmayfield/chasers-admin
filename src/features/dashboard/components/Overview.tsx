@@ -2,7 +2,6 @@ import { FC } from 'react';
 import {
   Container,
   ContainerFull,
-  ContainerLg,
   ContainerSm,
   FlexCol,
   FlexRow,
