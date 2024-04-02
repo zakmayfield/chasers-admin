@@ -7,6 +7,8 @@ export * from './Input';
 export * from './InputLayout';
 export * from './InputError';
 export * from './StyledLink';
+export * from './Logo';
+export * from './PageHeader';
 export * from './PageLayout';
 export * from './Pagination';
 export * from './Spinner';
