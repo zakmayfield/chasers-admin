@@ -25,7 +25,7 @@ export const NewOrders: FC<NewOrdersProps> = ({ className }) => {
           </FlexCol>
         </ContainerFull>
 
-        <Pagination className='mt-auto' />
+        <Pagination className='mt-auto p-0 text-right' />
       </FlexCol>
     </ContainerFull>
   );

@@ -3,7 +3,8 @@
 import { FC } from 'react';
 import { NewOrders, NewUsers, Overview } from './components';
 import { DashboardLayout } from './components';
-import { Container, ContainerFull } from '@/shared/components';
+import { ContainerFull, Logo, PageHeader } from '@/shared/components';
+import { Navbar } from '..';
 
 interface DashboardProps {
   email: string;
@@ -12,6 +13,8 @@ interface DashboardProps {
 export const Dashboard: FC<DashboardProps> = ({ email }) => {
   return (
     <DashboardLayout>
+      <PageHeader header='Dashboard' />
+
       <Overview className='border col-span-4' />
       <NewOrders className='border col-span-2' />
       <NewUsers className='border col-span-2' />

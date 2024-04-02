@@ -3,7 +3,9 @@ import {
   Container,
   ContainerFull,
   ContainerLg,
+  ContainerSm,
   FlexCol,
+  FlexRow,
 } from '@/shared/components';
 import { merge } from '@/utils';
 
@@ -14,14 +16,15 @@ interface OverviewProps {
 export const Overview: FC<OverviewProps> = ({ className }) => {
   return (
     <ContainerFull className={merge(`${className}`)}>
-      <FlexCol>
+      <FlexCol className='h-full'>
         <h2>Overview</h2>
 
-        <ContainerFull className='text-gray-900 border bg-chasers-tertiary'>
-          <FlexCol>
-            <Container className='border'>data 1</Container>
-            <Container className='border'>data 2</Container>
-          </FlexCol>
+        <ContainerFull className='h-full border bg-chasers-tertiary'>
+          <FlexRow className='h-full'>
+            <ContainerSm className='border'>data 1</ContainerSm>
+            <Container className='border flex-grow'>data 2</Container>
+            <Container className='border w-full h-auto'>data 2</Container>
+          </FlexRow>
         </ContainerFull>
       </FlexCol>
     </ContainerFull>

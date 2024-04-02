@@ -24,7 +24,7 @@ export const NewUsers: FC<NewUsersProps> = ({ className }) => {
           </FlexCol>
         </ContainerFull>
 
-        <Pagination />
+        <Pagination className='mt-auto p-0' />
       </FlexCol>
     </ContainerFull>
   );

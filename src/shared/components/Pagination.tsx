@@ -9,7 +9,7 @@ interface PaginationProps {
 export const Pagination: FC<PaginationProps> = ({ className }) => {
   return (
     <ContainerFull
-      className={merge(`border p-comfy-xs text-center ${className ?? ''}`)}
+      className={merge(`p-comfy-xs text-right ${className ?? ''}`)}
     >
       {'< - | - >'}
     </ContainerFull>
