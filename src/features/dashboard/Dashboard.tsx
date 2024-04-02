@@ -1,13 +1,9 @@
 'use client';
 
-import {
-  ContainerFull,
-  ContainerSm,
-  ContainerMd,
-  FlexRow,
-} from '@/shared/components';
 import { FC } from 'react';
-import { Overview } from './components';
+import { NewOrders, NewUsers, Overview } from './components';
+import { DashboardLayout } from './components';
+import { Container } from '@/shared/components';
 
 interface DashboardProps {
   email: string;
@@ -15,19 +11,10 @@ interface DashboardProps {
 
 export const Dashboard: FC<DashboardProps> = ({ email }) => {
   return (
-    <ContainerFull className='border bg-chasers-primary p-comfy-lg'>
-      <FlexRow className=''>
-        <Overview />
-        <ContainerSm className='border'>
-          <div>new orders</div>
-        </ContainerSm>
-        <ContainerSm className='border'>
-          <div>new user</div>
-        </ContainerSm>
-        <ContainerSm className='border'>
-          <div>invoice</div>
-        </ContainerSm>
-      </FlexRow>
-    </ContainerFull>
+    <DashboardLayout>
+      <Overview className='border col-span-4' />
+      <NewOrders className='border col-span-2 row-span-2' />
+      <NewUsers className='border col-span-2' />
+    </DashboardLayout>
   );
 };

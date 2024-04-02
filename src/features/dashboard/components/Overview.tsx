@@ -1,18 +1,26 @@
-import { ContainerFull, ContainerLg, FlexCol } from '@/shared/components';
 import { FC } from 'react';
+import {
+  Container,
+  ContainerFull,
+  ContainerLg,
+  FlexCol,
+} from '@/shared/components';
+import { merge } from '@/utils';
 
-interface OverviewProps {}
+interface OverviewProps {
+  className?: string;
+}
 
-export const Overview: FC<OverviewProps> = ({}) => {
+export const Overview: FC<OverviewProps> = ({ className }) => {
   return (
-    <ContainerFull className='border'>
+    <ContainerFull className={merge(`${className}`)}>
       <FlexCol>
-        <h1>Overview</h1>
+        <h2>Overview</h2>
 
         <ContainerFull className='text-gray-900 border bg-chasers-tertiary'>
           <FlexCol>
-            <ContainerLg>data 1</ContainerLg>
-            <ContainerLg>data 2</ContainerLg>
+            <Container className='border'>data 1</Container>
+            <Container className='border'>data 2</Container>
           </FlexCol>
         </ContainerFull>
       </FlexCol>
