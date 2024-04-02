@@ -52,6 +52,8 @@ const config: Config = {
       minWidth: {
         xs: '12rem',
         sm: '24rem',
+        md: '36rem',
+        lg: '48rem',
       },
     },
   },

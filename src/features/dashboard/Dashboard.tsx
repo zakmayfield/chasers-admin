@@ -1,13 +1,9 @@
 'use client';
 
-import {
-  Container,
-  ContainerFull,
-  ContainerSm,
-  ContainerMd,
-  FlexCol,
-} from '@/shared/components';
 import { FC } from 'react';
+import { NewOrders, NewUsers, Overview } from './components';
+import { DashboardLayout } from './components';
+import { ContainerFull, PageHeader } from '@/shared/components';
 
 interface DashboardProps {
   email: string;
@@ -15,30 +11,18 @@ interface DashboardProps {
 
 export const Dashboard: FC<DashboardProps> = ({ email }) => {
   return (
-    <ContainerFull className='border bg-chasers-primary p-comfy-lg'>
-      <FlexCol>
-        <Container className='border'>
-          <h1>hi, {email}</h1>
-        </Container>
+    <DashboardLayout>
+      <PageHeader header='Dashboard' />
 
-        <ContainerSm className='border'>
-          <p>now what should we put here...</p>
-        </ContainerSm>
-
-        <ContainerMd className='border'>
-          <FlexCol>
-            <p>
-              maybe{' '}
-              <span className='text-gray-400'>
-                user accounts to be approved
-              </span>
-            </p>
-            <p>
-              or <span className='text-gray-400'>new orders</span>
-            </p>
-          </FlexCol>
-        </ContainerMd>
-      </FlexCol>
-    </ContainerFull>
+      <Overview className='border col-span-4' />
+      <NewOrders className='border col-span-2' />
+      <NewUsers className='border col-span-2' />
+      <ContainerFull className='border col-span-4'>
+        <h2>placeholder</h2>
+      </ContainerFull>
+      <ContainerFull className='border col-start-3 col-span-4 h-72'>
+        <h2>placeholder</h2>
+      </ContainerFull>
+    </DashboardLayout>
   );
 };
