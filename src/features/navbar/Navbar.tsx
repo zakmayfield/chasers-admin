@@ -17,6 +17,7 @@ export const Navbar: FC<NavbarProps> = ({ className, underline }) => {
           <StyledLink path='/dashboard' content='dashboard' />
           <StyledLink path='/users' content='users' />
           <StyledLink path='#' content='orders' />
+          <StyledLink path='#' content='admins' />
           <StyledLink path='#' content='logout' />
         </FlexRow>
       </nav>
