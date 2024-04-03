@@ -7,5 +7,5 @@ export default async function Page() {
   if (!session || !session.user) {
     return notFound();
   }
-  return <Dashboard email={session.user.email} />;
+  return <Dashboard />;
 }
