@@ -1,3 +1,4 @@
+export * from './admins';
 export * from './dashboard';
 export * from './footer';
 export * from './navbar';
