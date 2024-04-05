@@ -1,6 +1,7 @@
 import {
   Container,
   ContainerFull,
+  ContentContainer,
   FlexCol,
   Pagination,
 } from '@/shared/components';
@@ -19,8 +20,8 @@ export const Approvals: FC<ApprovalsProps> = ({ className }) => {
 
         <ContainerFull className='border bg-chasers-tertiary h-full'>
           <FlexCol>
-            <Container className='border'>user 1</Container>
-            <Container className='border'>user 2</Container>
+            <ContentContainer className='border'>user 1</ContentContainer>
+            <ContentContainer className='border'>user 2</ContentContainer>
           </FlexCol>
         </ContainerFull>
 

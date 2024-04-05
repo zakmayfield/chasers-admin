@@ -1,6 +1,7 @@
 import {
   Container,
   ContainerFull,
+  ContentContainer,
   FlexCol,
   Pagination,
 } from '@/shared/components';
@@ -19,9 +20,9 @@ export const AllUsers: FC<AllUsersProps> = ({ className }) => {
 
         <ContainerFull className='border h-full bg-chasers-tertiary'>
           <FlexCol>
-            <Container className='border'>user 1</Container>
-            <Container className='border'>user 2</Container>
-            <Container className='border'>user 3</Container>
+            <ContentContainer className='border'>user 1</ContentContainer>
+            <ContentContainer className='border'>user 2</ContentContainer>
+            <ContentContainer className='border'>user 3</ContentContainer>
           </FlexCol>
         </ContainerFull>
 

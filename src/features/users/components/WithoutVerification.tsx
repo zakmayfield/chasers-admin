@@ -1,6 +1,7 @@
 import {
   Container,
   ContainerFull,
+  ContentContainer,
   FlexCol,
   Pagination,
 } from '@/shared/components';
@@ -16,7 +17,7 @@ export const WithoutVerification: FC<WithoutVerificationProps> = ({}) => {
 
         <ContainerFull className='border h-full bg-chasers-tertiary'>
           <FlexCol>
-            <Container className='border'>user 1</Container>
+            <ContentContainer className='border'>user 1</ContentContainer>
           </FlexCol>
         </ContainerFull>
 

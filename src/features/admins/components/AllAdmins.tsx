@@ -1,4 +1,9 @@
-import { Container, ContainerFull, FlexCol } from '@/shared/components';
+import {
+  Container,
+  ContainerFull,
+  ContentContainer,
+  FlexCol,
+} from '@/shared/components';
 import { merge } from '@/utils';
 import { FC } from 'react';
 
@@ -14,8 +19,8 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
 
         <ContainerFull className='border h-full bg-chasers-tertiary'>
           <FlexCol>
-            <Container className='border'>Admin 1</Container>
-            <Container className='border'>Admin 2</Container>
+            <ContentContainer className='border'>Admin 1</ContentContainer>
+            <ContentContainer className='border'>Admin 2</ContentContainer>
           </FlexCol>
         </ContainerFull>
       </FlexCol>
