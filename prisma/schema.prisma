@@ -157,7 +157,7 @@ model User {
   Favorite          Favorite[]
   Order             Order[]
   Session           Session[]
-  UserPermission    UserPermission[]
+  permissions       UserPermission[]
   VerificationToken VerificationToken?
 }
 
