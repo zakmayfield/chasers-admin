@@ -1,6 +1,6 @@
 import { ContainerFull, PageHeader } from '@/shared/components';
 import { FC } from 'react';
-import { AdminsLayout } from './components';
+import { AdminsLayout, AllAdmins } from './components';
 
 interface AdminsProps {}
 
@@ -9,9 +9,7 @@ export const Admins: FC<AdminsProps> = ({}) => {
     <AdminsLayout>
       <PageHeader header='Admins' />
 
-      <ContainerFull className='border col-span-full'>
-        <h2>placeholder</h2>
-      </ContainerFull>
+      <AllAdmins className='border col-span-full' />
     </AdminsLayout>
   );
 };

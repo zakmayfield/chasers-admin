@@ -8,11 +8,29 @@ interface ContainerProps {
   className?: string;
 }
 
+// TODO: `Container` should utilize `max-w-max` for retaining size of content
+// should use `ContainerFull` for a full width container regardless of content
 export const Container: FC<ContainerProps> = ({ children, className }) => {
   return (
     <div
       className={merge(
         `min-w-xs inline-block rounded-smoother p-comfy-sm ${className ?? ''}`
+      )}
+    >
+      {children}
+    </div>
+  );
+};
+export const ContentContainer: FC<ContainerProps> = ({
+  children,
+  className,
+}) => {
+  return (
+    <div
+      className={merge(
+        `min-w-xs max-w-max inline-block rounded-smoother p-comfy-sm ${
+          className ?? ''
+        }`
       )}
     >
       {children}

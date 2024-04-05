@@ -1,6 +1,7 @@
 import {
   Container,
   ContainerFull,
+  ContentContainer,
   FlexCol,
   Pagination,
 } from '@/shared/components';
@@ -19,9 +20,9 @@ export const NewOrders: FC<NewOrdersProps> = ({ className }) => {
 
         <ContainerFull className='border bg-chasers-tertiary h-full'>
           <FlexCol>
-            <Container className='border'>order 1</Container>
-            <Container className='border'>order 2</Container>
-            <Container className='border'>order 3</Container>
+            <ContentContainer className='border'>order 1</ContentContainer>
+            <ContentContainer className='border'>order 2</ContentContainer>
+            <ContentContainer className='border'>order 3</ContentContainer>
           </FlexCol>
         </ContainerFull>
 
