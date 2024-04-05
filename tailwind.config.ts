@@ -49,6 +49,12 @@ const config: Config = {
       colors,
       padding,
       borderRadius,
+      minWidth: {
+        xs: '12rem',
+        sm: '24rem',
+        md: '36rem',
+        lg: '48rem',
+      },
     },
   },
   plugins: [],
