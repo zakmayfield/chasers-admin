@@ -4,6 +4,7 @@ import {
   ContainerLg,
   ContainerMd,
   ContainerSm,
+  FlexCol,
   FlexRow,
 } from '@/shared/components';
 
@@ -11,8 +12,8 @@ export default function Page() {
   return (
     <>
       <ContainerFull className='border'>
-        <FlexRow>
-          <Container className='border'>
+        <FlexCol>
+          <Container className='border max-w-max'>
             <h3>
               Container <span className='text-slate-300'>(auto)</span>
             </h3>
@@ -29,7 +30,7 @@ export default function Page() {
           <ContainerFull className='border'>
             <h3>ContainerFull</h3>
           </ContainerFull>
-        </FlexRow>
+        </FlexCol>
       </ContainerFull>
     </>
   );
