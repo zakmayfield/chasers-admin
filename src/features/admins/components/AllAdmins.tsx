@@ -38,8 +38,8 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
           ) : (
             <FlexRow>
               {data?.map((admin) => (
-                <FlexCol>
-                  <ContentContainer key={admin.id} className='border'>
+                <FlexCol key={admin.id}>
+                  <ContentContainer className='border'>
                     <ContainerFull>
                       <FlexRow className='items-center'>
                         <p className='text-green-200'>{admin.username}</p>
