@@ -2,8 +2,11 @@ import { z } from 'zod';
 import { SignInValidator, SignUpValidator } from '@/shared/validators';
 import { FormEvent } from 'react';
 import { FieldValues } from 'react-hook-form';
-import { Role } from '@prisma/client';
+import { Role, User } from '@prisma/client';
 import { UseMutateFunction } from '@tanstack/react-query';
+
+//^ GENERAL
+export type SecureUser = Omit<User, 'password'>;
 
 //^ FORMS
 export type SignInFormData = z.infer<typeof SignInValidator>;
@@ -43,6 +46,8 @@ export type FetchService = {
   };
 };
 
+export type FetchResponse<T> = Promise<any>;
+
 //^ MUTATIONS
 export type MutateFunction<T> = UseMutateFunction<T, Error, void, unknown>;
 
@@ -53,3 +58,6 @@ export type AllQueryKeys = {
     all: string;
   };
 };
+
+export type GetAdminsResponse = Promise<SecureUser[]>;
+export type GetAdminsData = SecureUser[];
