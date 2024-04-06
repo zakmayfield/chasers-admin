@@ -38,14 +38,12 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
           ) : (
             <FlexRow>
               {data?.map((admin) => (
-                <FlexCol key={admin.id}>
-                  <ContentContainer className='border'>
-                    <ContainerFull>
-                      <FlexRow className='items-center'>
-                        <p className='text-green-200'>{admin.username}</p>
-                      </FlexRow>
+                <FlexCol key={admin.id} className=''>
+                  <ContentContainer className='border h-full min-w-sm max-w-sm'>
+                    <FlexCol className='gap-0 mb-6'>
+                      <h3 className='text-green-200'>{admin.username}</h3>
                       <p className='text-gray-300'>{admin.email}</p>
-                    </ContainerFull>
+                    </FlexCol>
 
                     <ContainerFull className='border'>
                       <p className='mb-3'>Permissions</p>
@@ -53,7 +51,7 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
                         {admin.permissions.map((permission) => (
                           <p
                             key={permission.permissionId}
-                            className='text-gray-300'
+                            className='text-gray-300 text-base'
                           >
                             {permission.permission.name}
                           </p>
