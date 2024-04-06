@@ -3,6 +3,7 @@ import { SignInValidator, SignUpValidator } from '@/shared/validators';
 import { FormEvent } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { Role } from '@prisma/client';
+import { UseMutateFunction } from '@tanstack/react-query';
 
 export type SignInFormData = z.infer<typeof SignInValidator>;
 export type OptionalSignInValues = {
@@ -24,3 +25,5 @@ export enum Roles {
   ADMIN = 'ADMIN',
   USER = 'USER',
 }
+
+export type MutateFunction<T> = UseMutateFunction<T, Error, void, unknown>;

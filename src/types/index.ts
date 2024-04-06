@@ -8,4 +8,5 @@ import {
 export type TailwindKeyValue =
   | ResolvableTo<KeyValuePair<string, string>>
   | undefined;
+
 export type PartialConfig = Partial<CustomThemeConfig> | undefined;
