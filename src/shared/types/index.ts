@@ -34,5 +34,22 @@ export type Path = '/dashboard' | '/users' | '/orders' | '/admins';
 type Key = 'dashboard' | 'users' | 'orders' | 'admins';
 export type Paths = Record<Key, Path>;
 
+//^ SERVICES
+export type FetchService = {
+  path: Path;
+  options?: {
+    urlExtension?: string;
+    config?: RequestInit;
+  };
+};
+
 //^ MUTATIONS
 export type MutateFunction<T> = UseMutateFunction<T, Error, void, unknown>;
+
+//^ QUERIES
+export type QueryKeys = 'admins:all';
+export type AllQueryKeys = {
+  admin: {
+    all: string;
+  };
+};

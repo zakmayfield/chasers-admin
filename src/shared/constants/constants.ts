@@ -10,3 +10,9 @@ export const paths: Paths = {
   orders: '/orders',
   admins: '/admins',
 };
+
+export const queryKeys = {
+  admins: {
+    all: 'admins:all',
+  },
+};
