@@ -1,4 +1,6 @@
-import { ContainerFull, PageHeader } from '@/shared/components';
+'use client';
+
+import { PageHeader } from '@/shared/components';
 import { FC } from 'react';
 import { AdminsLayout, AllAdmins } from './components';
 
