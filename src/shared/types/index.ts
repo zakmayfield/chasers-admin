@@ -2,11 +2,20 @@ import { z } from 'zod';
 import { SignInValidator, SignUpValidator } from '@/shared/validators';
 import { FormEvent } from 'react';
 import { FieldValues } from 'react-hook-form';
-import { Role, User } from '@prisma/client';
+import { Permission, Role } from '@prisma/client';
 import { UseMutateFunction } from '@tanstack/react-query';
 
 //^ GENERAL
-export type SecureUser = Omit<User, 'password'>;
+export type SecureUser = {
+  id: string;
+  email: string;
+  username: string | null;
+  role: Role;
+  permissions: {
+    permissionId: string;
+    permission: Permission;
+  }[];
+};
 
 //^ FORMS
 export type SignInFormData = z.infer<typeof SignInValidator>;

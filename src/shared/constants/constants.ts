@@ -1,4 +1,4 @@
-import { QueryKeys, QueryKeysEnum } from './../types/index';
+import { QueryKeys, QueryKeysEnum } from '@/shared/types';
 import { Paths } from '@/shared/types';
 
 //^ URLS

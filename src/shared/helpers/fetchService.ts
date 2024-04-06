@@ -3,7 +3,9 @@ import { getUrl } from '@/utils';
 
 export const fetchService = async ({ path, options }: FetchService) => {
   try {
-    const response = await fetch(getUrl({ path, options }), {
+    const url = getUrl({ path, options });
+
+    const response = await fetch(url, {
       ...options?.config,
     });
 

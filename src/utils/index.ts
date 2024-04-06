@@ -8,8 +8,11 @@ export function merge(...inputs: ClassValue[]) {
 }
 
 export function getUrl({ path, options }: FetchService) {
+  const url = BASE_URL + '/api';
+
   if (options) {
-    return BASE_URL + path + options.extension;
+    return url + path + options.urlExtension;
   }
-  return BASE_URL + path;
+
+  return url + path;
 }

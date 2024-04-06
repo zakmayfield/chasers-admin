@@ -1,4 +1,5 @@
 import {
+  Container,
   ContainerFull,
   ContentContainer,
   FlexCol,
@@ -22,6 +23,8 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
     queryFn: getAdmins,
   });
 
+  // TODO: loading / error layout components
+
   return (
     <ContainerFull className={merge(`${className ?? ''}`)}>
       <FlexCol className='h-full'>
@@ -33,10 +36,34 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
               <Spinner className='text-4xl' />
             </FlexRow>
           ) : (
-            <FlexCol>
-              <ContentContainer className='border'>Admin 1</ContentContainer>
-              <ContentContainer className='border'>Admin 2</ContentContainer>
-            </FlexCol>
+            <FlexRow>
+              {data?.map((admin) => (
+                <FlexCol>
+                  <ContentContainer key={admin.id} className='border'>
+                    <ContainerFull>
+                      <FlexRow className='items-center'>
+                        <p className='text-green-200'>{admin.username}</p>
+                      </FlexRow>
+                      <p className='text-gray-300'>{admin.email}</p>
+                    </ContainerFull>
+
+                    <ContainerFull className='border'>
+                      <p className='mb-3'>Permissions</p>
+                      <FlexRow>
+                        {admin.permissions.map((permission) => (
+                          <p
+                            key={permission.permissionId}
+                            className='text-gray-300'
+                          >
+                            {permission.permission.name}
+                          </p>
+                        ))}
+                      </FlexRow>
+                    </ContainerFull>
+                  </ContentContainer>
+                </FlexCol>
+              ))}
+            </FlexRow>
           )}
         </ContainerFull>
       </FlexCol>
