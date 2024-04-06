@@ -1,9 +1,11 @@
-import { Path } from '@/shared/types';
+import { FetchService } from '@/shared/types';
 import { getUrl } from '@/utils';
 
-export const fetchService = async ({ path }: { path: Path }) => {
+export const fetchService = async ({ path, options }: FetchService) => {
   try {
-    const response = await fetch(getUrl(path));
+    const response = await fetch(getUrl({ path, options }), {
+      ...options?.config,
+    });
 
     if (!response.ok) {
       throw new Error(await response.text());
