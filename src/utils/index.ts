@@ -6,6 +6,6 @@ export function merge(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function getRoute(path: string) {
+export function getUrl(path: string) {
   return BASE_URL + path;
 }
