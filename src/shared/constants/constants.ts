@@ -1,3 +1,4 @@
+import { QueryKeys, QueryKeysEnum } from './../types/index';
 import { Paths } from '@/shared/types';
 
 //^ URLS
@@ -11,8 +12,8 @@ export const paths: Paths = {
   admins: '/admins',
 };
 
-export const queryKeys = {
+export const queryKeys: QueryKeys = {
   admins: {
-    all: 'admins:all',
+    all: QueryKeysEnum.ALL_ADMINS,
   },
 };
