@@ -73,6 +73,11 @@ enum Role {
   USER
 }
 
+model AuthorizedAdmin {
+  id    String @id @default(cuid())
+  email String @unique
+}
+
 model Permission {
   id          String  @id @default(cuid())
   name        String  @unique
@@ -201,7 +206,6 @@ model OrderLineItem {
   unitId  String
 }
 
-// TODO: cascade on user delete
 model Favorite {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -209,7 +213,7 @@ model Favorite {
   juice   Product @relation(fields: [juiceId], references: [id])
   juiceId String
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
   @@unique([userId, juiceId])
