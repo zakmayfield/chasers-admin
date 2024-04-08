@@ -67,3 +67,9 @@ export enum QueryKeys {
 
 export type GetAdminsResponse = Promise<SecureUser[]>;
 export type GetAdminsData = SecureUser[];
+
+//^ API
+export type AuthorizedAdminsResponseData = {
+  id: string;
+  email: string;
+}[];
