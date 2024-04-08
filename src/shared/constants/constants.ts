@@ -1,4 +1,4 @@
-import { QueryKeys, QueryKeysEnum } from '@/shared/types';
+import { QueryKeys } from '@/shared/types';
 import { Paths } from '@/shared/types';
 
 //^ URLS
@@ -12,8 +12,9 @@ export const paths: Paths = {
   admins: '/admins',
 };
 
-export const queryKeys: QueryKeys = {
+export const queryKeys = {
   admins: {
-    all: QueryKeysEnum.ALL_ADMINS,
+    all: QueryKeys.ALL_ADMINS,
+    authorized: QueryKeys.AUTHORIZED_ADMINS,
   },
 };

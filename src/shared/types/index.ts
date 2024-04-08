@@ -60,16 +60,16 @@ export type FetchResponse<T> = Promise<any>;
 //^ MUTATIONS
 export type MutateFunction<T> = UseMutateFunction<T, Error, void, unknown>;
 
-//^ QUERIES
-export type QueryKeys = {
-  admins: {
-    all: 'admins:all';
-  };
-};
-
-export enum QueryKeysEnum {
+export enum QueryKeys {
   ALL_ADMINS = 'admins:all',
+  AUTHORIZED_ADMINS = 'admins:authorized',
 }
 
 export type GetAdminsResponse = Promise<SecureUser[]>;
 export type GetAdminsData = SecureUser[];
+
+//^ API
+export type AuthorizedAdminsResponseData = {
+  id: string;
+  email: string;
+}[];

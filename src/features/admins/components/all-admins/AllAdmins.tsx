@@ -6,9 +6,8 @@ import {
   FlexRow,
   Spinner,
 } from '@/shared/components';
-import { queryKeys } from '@/shared/constants';
 import { getAdmins } from '@/shared/services/queries';
-import { GetAdminsData } from '@/shared/types';
+import { GetAdminsData, QueryKeys } from '@/shared/types';
 import { merge } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 import { FC } from 'react';
@@ -19,7 +18,7 @@ interface AllAdminsProps {
 
 export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
   const { data, isLoading, error } = useQuery<GetAdminsData, Error>({
-    queryKey: [queryKeys.admins.all],
+    queryKey: [QueryKeys.ALL_ADMINS],
     queryFn: getAdmins,
   });
 
