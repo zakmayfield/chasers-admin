@@ -1,16 +1,18 @@
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
-import { authorizeAdmin } from '@/shared/services/mutations';
+import { apiErrorHandler } from '@/shared/helpers';
+import { apiSessionErrorHandler } from '@/shared/helpers/apiSessionErrorHandler';
 import {
   AuthorizeAdminRequestData,
   AuthorizeAdminResponseData,
 } from '@/shared/types';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 async function handler(req: Request) {
   const session = await getAuthSession();
-  if (!session || !session.user) {
-    return new Response('authentication error', { status: 401 });
+
+  const authError = await apiSessionErrorHandler(session);
+  if (authError) {
+    return authError;
   }
 
   const body: AuthorizeAdminRequestData = await req.json();
@@ -36,23 +38,7 @@ async function handler(req: Request) {
 
     return new Response(JSON.stringify(response));
   } catch (error) {
-    if (error instanceof Error) {
-      if (error instanceof Error) {
-        if (error instanceof PrismaClientKnownRequestError) {
-          // special errors
-          switch (error.code) {
-            case 'P2002':
-              return new Response('the requested email already exists', {
-                status: 409,
-              });
-          }
-        }
-        // default error
-        return new Response(error.message, { status: 500 });
-      }
-      // fallback error
-      return new Response('unexpected server error', { status: 500 });
-    }
+    return apiErrorHandler(error);
   }
 }
 
