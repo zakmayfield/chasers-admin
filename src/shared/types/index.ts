@@ -1,9 +1,13 @@
 import { z } from 'zod';
 import { SignInValidator, SignUpValidator } from '@/shared/validators';
 import { FormEvent } from 'react';
-import { FieldValues } from 'react-hook-form';
+import { DefaultValues, FieldValues, Resolver } from 'react-hook-form';
 import { Permission, Role } from '@prisma/client';
-import { QueryFunction, QueryKey } from '@tanstack/react-query';
+import {
+  MutationFunction,
+  QueryFunction,
+  QueryKey,
+} from '@tanstack/react-query';
 
 //^ FORM TYPES
 export type SignInFormData = z.infer<typeof SignInValidator>;
@@ -37,15 +41,28 @@ export type FetchService = {
   };
 };
 
-//^ QUERIES / MUTATIONS
+//^ QUERIE KEYS
 export enum QueryKeys {
   ALL_ADMINS = 'admins:all',
   AUTHORIZED_ADMINS = 'admins:authorized',
 }
 
+//^ HOOKS
 export type UseCustomQueryProps<T> = {
   queryKey: QueryKey;
   queryFn: QueryFunction<T>;
+};
+
+export type UseCustomMutationProps<T> = {
+  mutationFn: MutationFunction<T>;
+  onSuccessCallback?(data: T): void;
+  onErrorCallback?(error: Error): void;
+};
+
+export type UseCustomFormProps<T extends FieldValues> = {
+  onSubmit: (formValues: T) => void;
+  resolver: Resolver<T>;
+  defaultValues: DefaultValues<T>;
 };
 
 //^ DATA TYPES
