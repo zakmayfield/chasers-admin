@@ -7,8 +7,14 @@ import {
   Spinner,
 } from '@/shared/components';
 import { useCustomMutation, useCustomQuery } from '@/shared/hooks';
+import { authorizeAdmin } from '@/shared/services/mutations';
 import { getAuthorizedAdmins } from '@/shared/services/queries/admins/getAuthorizedAdmins';
-import { GetAuthorizedAdminsResponseData, QueryKeys } from '@/shared/types';
+import {
+  AuthorizeAdminRequestData,
+  AuthorizeAdminResponseData,
+  GetAuthorizedAdminsResponseData,
+  QueryKeys,
+} from '@/shared/types';
 import { merge } from '@/utils';
 import { FC } from 'react';
 
@@ -22,10 +28,11 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
     queryFn: getAuthorizedAdmins,
   });
 
-  const { mutate } = useCustomMutation({
-    mutationFn: async () => {
-      throw new Error('whoopsie');
-    },
+  const { mutate } = useCustomMutation<
+    AuthorizeAdminResponseData,
+    AuthorizeAdminRequestData
+  >({
+    mutationFn: authorizeAdmin,
     onSuccessCallback(data) {
       console.log('mutation:success', { data });
     },
@@ -55,7 +62,11 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
           )}
         </ContainerFull>
 
-        <Button content='authorize admin' action={mutate} className='border' />
+        <Button
+          content='authorize admin'
+          action={() => mutate({ email: 'zakmayfield@gmail.com' })}
+          className='border'
+        />
       </FlexCol>
     </ContainerFull>
   );
