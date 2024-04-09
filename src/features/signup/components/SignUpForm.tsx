@@ -6,10 +6,12 @@ import { SignUpFormData } from '@/shared/types';
 import { signUpResolver } from '@/shared/validators/resolvers';
 import {
   Button,
-  FormLayout,
+  Container,
+  Form,
   Input,
   InputError,
   InputLayout,
+  Spinner,
 } from '@/shared/components';
 
 interface SignUpFormProps {}
@@ -35,7 +37,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
 
   return (
     <div>
-      <FormLayout methods={methods} handleSubmit={handleSubmit}>
+      <Form methods={methods} handleSubmit={handleSubmit}>
         <InputLayout>
           <Input
             label='username'
@@ -69,15 +71,15 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
           <InputError fieldError={methods.formState.errors.password} />
         </InputLayout>
 
-        <Button
-          content='create account'
-          className='mt-3'
-          isLoading={
-            methods.formState.isSubmitted &&
-            methods.formState.isSubmitSuccessful
-          }
-        />
-      </FormLayout>
+        {methods.formState.isSubmitted &&
+        methods.formState.isSubmitSuccessful ? (
+          <Container className='h-12 flex items-center justify-center'>
+            <Spinner className='text-3xl' />
+          </Container>
+        ) : (
+          <Button content='sign in' />
+        )}
+      </Form>
     </div>
   );
 };
