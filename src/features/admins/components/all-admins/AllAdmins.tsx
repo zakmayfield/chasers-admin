@@ -1,11 +1,4 @@
-import {
-  Container,
-  ContainerFull,
-  ContentContainer,
-  FlexCol,
-  FlexRow,
-  Spinner,
-} from '@/shared/components';
+import { ContainerFull, FlexCol, FlexRow, Spinner } from '@/shared/components';
 import { getAdmins } from '@/shared/services/queries';
 import { GetAdminsData, QueryKeys } from '@/shared/types';
 import { merge } from '@/utils';
@@ -29,7 +22,7 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
       <FlexCol className='h-full'>
         <h2>All Admins</h2>
 
-        <ContainerFull className='border h-full min-h-[16.5rem] bg-chasers-tertiary'>
+        <ContainerFull className='h-full min-h-[16.5rem] bg-chasers-primary'>
           {isLoading ? (
             <FlexRow className='h-full items-center'>
               <Spinner className='text-4xl' />
@@ -37,8 +30,8 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
           ) : (
             <FlexRow>
               {data?.map((admin) => (
-                <FlexCol key={admin.id} className=''>
-                  <ContentContainer className='border h-full min-w-sm max-w-sm'>
+                <FlexCol key={admin.id} className='w-full'>
+                  <ContainerFull className='border h-full'>
                     <FlexCol className='gap-0 mb-6'>
                       <h3 className='text-green-200'>{admin.username}</h3>
                       <p className='text-gray-300'>{admin.email}</p>
@@ -57,7 +50,7 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
                         ))}
                       </FlexRow>
                     </ContainerFull>
-                  </ContentContainer>
+                  </ContainerFull>
                 </FlexCol>
               ))}
             </FlexRow>

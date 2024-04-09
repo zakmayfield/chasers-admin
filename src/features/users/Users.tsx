@@ -16,7 +16,7 @@ export const Users: FC<UsersProps> = ({}) => {
 
       <Approvals className='border col-span-full' />
       <AllUsers className='border col-span-3' />
-      <WithoutVerification />
+      <WithoutVerification className='border col-span-3' />
     </UsersLayout>
   );
 };

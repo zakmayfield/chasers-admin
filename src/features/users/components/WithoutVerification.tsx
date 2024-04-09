@@ -1,23 +1,22 @@
-import {
-  Container,
-  ContainerFull,
-  ContentContainer,
-  FlexCol,
-  Pagination,
-} from '@/shared/components';
+import { ContainerFull, FlexCol, Pagination } from '@/shared/components';
+import { merge } from '@/utils';
 import { FC } from 'react';
 
-interface WithoutVerificationProps {}
+interface WithoutVerificationProps {
+  className?: string;
+}
 
-export const WithoutVerification: FC<WithoutVerificationProps> = ({}) => {
+export const WithoutVerification: FC<WithoutVerificationProps> = ({
+  className,
+}) => {
   return (
-    <ContainerFull className='border col-span-3'>
+    <ContainerFull className={merge(`${className ?? ''}`)}>
       <FlexCol className='h-full'>
         <h2>Not Verified</h2>
 
-        <ContainerFull className='border h-full bg-chasers-tertiary'>
+        <ContainerFull className='h-full bg-chasers-primary'>
           <FlexCol>
-            <ContentContainer className='border'>user 1</ContentContainer>
+            <ContainerFull className='border'>user 1</ContainerFull>
           </FlexCol>
         </ContainerFull>
 

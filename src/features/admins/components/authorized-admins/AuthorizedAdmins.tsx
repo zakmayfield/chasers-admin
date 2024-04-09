@@ -29,7 +29,7 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
       <FlexCol className='h-full'>
         <h2>Authorized Admins</h2>
 
-        <ContainerFull className='border'>
+        <ContainerFull className='bg-chasers-primary'>
           {isLoading ? (
             <FlexRow className='h-full items-center'>
               <Spinner className='text-4xl' />
