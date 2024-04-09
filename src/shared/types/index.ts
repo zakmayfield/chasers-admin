@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { SignInValidator, SignUpValidator } from '@/shared/validators';
 import { FormEvent } from 'react';
 import { DefaultValues, FieldValues, Resolver } from 'react-hook-form';
-import { Permission, Role } from '@prisma/client';
+import { AuthorizedAdmin, Permission, Role } from '@prisma/client';
 import {
   MutationFunction,
   QueryFunction,
@@ -34,7 +34,7 @@ export type Paths = Record<Key, Path>;
 
 //^ HELPER TYPES
 export type FetchService = {
-  path: Path;
+  route: Path;
   options?: {
     urlExtension?: string;
     config?: RequestInit;
@@ -53,8 +53,8 @@ export type UseCustomQueryProps<T> = {
   queryFn: QueryFunction<T>;
 };
 
-export type UseCustomMutationProps<T> = {
-  mutationFn: MutationFunction<T>;
+export type UseCustomMutationProps<T, V> = {
+  mutationFn: MutationFunction<T, V>;
   onSuccessCallback?(data: T): void;
   onErrorCallback?(error: Error): void;
 };
@@ -88,3 +88,10 @@ export type GetAuthorizedAdminsResponseData = {
 }[];
 
 export type GetAdminsResponseData = SecureUser[];
+
+export type AuthorizeAdminRequestData = {
+  email: string;
+};
+export type AuthorizeAdminResponseData = AuthorizedAdmin & {
+  success: true;
+};

@@ -4,5 +4,5 @@ import { GetAdminsResponseData } from '@/shared/types';
 
 export const getAdmins = async (): Promise<GetAdminsResponseData> =>
   await fetchService({
-    path: paths.admins,
+    route: paths.admins,
   });

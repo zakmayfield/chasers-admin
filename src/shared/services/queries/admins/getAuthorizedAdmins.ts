@@ -5,7 +5,7 @@ import { GetAuthorizedAdminsResponseData } from '@/shared/types';
 export const getAuthorizedAdmins =
   async (): Promise<GetAuthorizedAdminsResponseData> =>
     await fetchService({
-      path: paths.admins,
+      route: paths.admins,
       options: {
         urlExtension: '/authorized',
       },
