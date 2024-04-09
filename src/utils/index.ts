@@ -7,12 +7,12 @@ export function merge(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function getUrl({ path, options }: FetchService) {
+export function getUrl({ route, options }: FetchService) {
   const url = BASE_URL + '/api';
 
   if (options) {
-    return url + path + options.urlExtension;
+    return url + route + options.urlExtension;
   }
 
-  return url + path;
+  return url + route;
 }
