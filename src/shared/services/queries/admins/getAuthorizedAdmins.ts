@@ -1,9 +1,9 @@
 import { paths } from '@/shared/constants';
 import { fetchService } from '@/shared/helpers';
-import { AuthorizedAdminsResponseData } from '@/shared/types';
+import { GetAuthorizedAdminsResponseData } from '@/shared/types';
 
 export const getAuthorizedAdmins =
-  async (): Promise<AuthorizedAdminsResponseData> =>
+  async (): Promise<GetAuthorizedAdminsResponseData> =>
     await fetchService({
       path: paths.admins,
       options: {

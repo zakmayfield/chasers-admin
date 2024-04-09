@@ -3,21 +3,13 @@ import { SignInValidator, SignUpValidator } from '@/shared/validators';
 import { FormEvent } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { Permission, Role } from '@prisma/client';
-import { UseMutateFunction } from '@tanstack/react-query';
+import {
+  QueryFunction,
+  QueryKey,
+  UseMutateFunction,
+} from '@tanstack/react-query';
 
-//^ GENERAL
-export type SecureUser = {
-  id: string;
-  email: string;
-  username: string | null;
-  role: Role;
-  permissions: {
-    permissionId: string;
-    permission: Permission;
-  }[];
-};
-
-//^ FORMS
+//^ FORM TYPES
 export type SignInFormData = z.infer<typeof SignInValidator>;
 export type OptionalSignInValues = {
   username?: string;
@@ -30,23 +22,17 @@ export type FormValues = FieldValues;
 export type FormEventType = FormEvent<HTMLFormElement>;
 export type ButtonEventType = React.MouseEvent<HTMLButtonElement>;
 
-//^ AUTH
+//^ UTIL TYPES
 export interface CreateUser extends SignUpFormData {
   role: Role;
 }
 
-//^ ROLES
-export enum Roles {
-  ADMIN = 'ADMIN',
-  USER = 'USER',
-}
-
-//^ PATHS
+//^ PATH TYPES
 export type Path = '/dashboard' | '/users' | '/orders' | '/admins';
 type Key = 'dashboard' | 'users' | 'orders' | 'admins';
 export type Paths = Record<Key, Path>;
 
-//^ SERVICES
+//^ HELPER TYPES
 export type FetchService = {
   path: Path;
   options?: {
@@ -55,21 +41,37 @@ export type FetchService = {
   };
 };
 
-export type FetchResponse<T> = Promise<any>;
-
-//^ MUTATIONS
-export type MutateFunction<T> = UseMutateFunction<T, Error, void, unknown>;
-
+//^ QUERIES / MUTATIONS
 export enum QueryKeys {
   ALL_ADMINS = 'admins:all',
   AUTHORIZED_ADMINS = 'admins:authorized',
 }
 
-export type GetAdminsResponse = Promise<SecureUser[]>;
-export type GetAdminsData = SecureUser[];
+export type UseCustomQueryProps<T> = {
+  queryKey: QueryKey;
+  queryFn: QueryFunction<T>;
+};
 
-//^ API
-export type AuthorizedAdminsResponseData = {
+//^ DATA TYPES
+export type SecureUser = {
+  id: string;
+  email: string;
+  username: string | null;
+  role: Role;
+  permissions: {
+    permissionId: string;
+    permission: Permission;
+  }[];
+};
+
+export enum Roles {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
+
+export type GetAuthorizedAdminsResponseData = {
   id: string;
   email: string;
 }[];
+
+export type GetAdminsResponseData = SecureUser[];
