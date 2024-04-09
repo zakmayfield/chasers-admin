@@ -5,10 +5,10 @@ import {
   FlexRow,
   Spinner,
 } from '@/shared/components';
+import { useCustomQuery } from '@/shared/hooks';
 import { getAuthorizedAdmins } from '@/shared/services/queries/admins/getAuthorizedAdmins';
-import { AuthorizedAdminsResponseData, QueryKeys } from '@/shared/types';
+import { GetAuthorizedAdminsResponseData, QueryKeys } from '@/shared/types';
 import { merge } from '@/utils';
-import { useQuery } from '@tanstack/react-query';
 import { FC } from 'react';
 
 interface AuthorizedAdminsProps {
@@ -16,13 +16,11 @@ interface AuthorizedAdminsProps {
 }
 
 export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
-  const { data, isLoading, error } = useQuery<
-    AuthorizedAdminsResponseData,
-    Error
-  >({
-    queryKey: [QueryKeys.AUTHORIZED_ADMINS],
-    queryFn: getAuthorizedAdmins,
-  });
+  const { data, isLoading, error, isError } =
+    useCustomQuery<GetAuthorizedAdminsResponseData>({
+      queryKey: [QueryKeys.AUTHORIZED_ADMINS],
+      queryFn: getAuthorizedAdmins,
+    });
 
   return (
     <ContainerFull className={merge(`${className}`)}>
