@@ -13,90 +13,17 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?
-  access_token      String?
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?
+  id_token          String? @db.Text
   session_state     String?
-  User              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-}
-
-model BillingAddress {
-  id            String  @id @default(cuid())
-  streetAddress String
-  unit          String?
-  city          String
-  state         String
-  postalCode    String
-  companyId     String  @unique
-  Company       Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-}
-
-model Cart {
-  id          String        @id @default(cuid())
-  userId      String        @unique
-  User        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  UnitsOnCart UnitsOnCart[]
-}
-
-model Company {
-  id                  String           @id @default(cuid())
-  name                String
-  userId              String           @unique
-  accountPayableEmail String
-  paymentMethod       String
-  BillingAddress      BillingAddress?
-  User                User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  ShippingAddress     ShippingAddress?
-}
-
-model Contact {
-  id          String  @id @default(cuid())
-  name        String
-  position    String?
-  phoneNumber String
-  userId      String  @unique
-  User        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Favorite {
-  id        String   @id @default(cuid())
-  juiceId   String
-  userId    String
-  createdAt DateTime @default(now())
-  Product   Product  @relation(fields: [juiceId], references: [id])
-  User      User     @relation(fields: [userId], references: [id])
-
-  @@unique([userId, juiceId])
-}
-
-model Order {
-  id            String          @id @default(cuid())
-  createdAt     DateTime        @default(now())
-  userId        String
-  User          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  OrderLineItem OrderLineItem[]
-}
-
-model OrderLineItem {
-  id       String @id @default(cuid())
-  orderId  String
-  unitId   String
-  quantity Int
-  Order    Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  Unit     Unit   @relation(fields: [unitId], references: [id])
-}
-
-model Product {
-  id       String     @id @default(cuid())
-  name     String
-  category String
-  Favorite Favorite[]
-  Unit     Unit[]
 }
 
 model Session {
@@ -104,7 +31,91 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String   @unique
+  token      String   @unique
+  expires    DateTime
+  valid      Boolean  @default(true)
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+}
+
+model User {
+  // auth
+  id                String              @id @default(cuid())
+  email             String              @unique
+  password          String
+  emailVerified     DateTime?
+  // additional data
+  contact           Contact? // 1:1
+  company           Company? // 1:1
+  cart              Cart? // 1:1
+  orders            Order[] // 1:m
+  favorites         Favorite[]
+  username          String?             @unique
+  // authorization
+  isApproved        Boolean             @default(false)
+  verificationToken VerificationToken[] // 1:m
+  role              Role                @default(USER)
+  permissions       UserPermission[]
+  // NextAuth
+  image             String?
+  accounts          Account[]
+  sessions          Session[]
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model AuthorizedAdmin {
+  id    String @id @default(cuid())
+  email String @unique
+}
+
+model Permission {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  description String?
+
+  users UserPermission[]
+}
+
+model UserPermission {
+  userId       String
+  permissionId String
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  @@unique([userId, permissionId])
+}
+
+model Contact {
+  id          String  @id @default(cuid())
+  name        String
+  position    String?
+  phoneNumber String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+}
+
+model Company {
+  id                  String           @id @default(cuid())
+  name                String
+  shippingAddress     ShippingAddress?
+  billingAddress      BillingAddress?
+  accountPayableEmail String
+  paymentMethod       String
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ShippingAddress {
@@ -115,78 +126,95 @@ model ShippingAddress {
   state                String
   postalCode           String
   deliveryInstructions String?
-  companyId            String  @unique
-  Company              Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String  @unique
+}
+
+model BillingAddress {
+  id            String  @id @default(cuid())
+  streetAddress String
+  unit          String?
+  city          String
+  state         String
+  postalCode    String
+
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String  @unique
+}
+
+model Product {
+  id        String     @id @default(cuid())
+  name      String // Product name, e.g., "Banana-Mango-Pineapple"
+  category  String // Product category, e.g., "BLENDS"
+  units     Unit[]
+  favorites Favorite[]
 }
 
 model Unit {
-  id            String          @id @default(cuid())
-  price         Float
-  code          String
-  productId     String
-  size          String
+  id String @id @default(cuid())
+
+  size  String
+  price Float
+  code  String
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  carts         UnitsOnCart[]
   OrderLineItem OrderLineItem[]
-  Product       Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
-  UnitsOnCart   UnitsOnCart?
+}
+
+model Cart {
+  id String @id @default(cuid())
+
+  items UnitsOnCart[]
+
+  user   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
 }
 
 model UnitsOnCart {
-  cartId    String
-  unitId    String   @unique
+  cart   Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cartId String
+  unit   Unit   @relation(fields: [unitId], references: [id])
+  unitId String @unique
+
   quantity  Int
   createdAt DateTime @default(now())
-  Cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  Unit      Unit     @relation(fields: [unitId], references: [id])
 
   @@id([cartId, unitId])
 }
 
-model User {
-  id                String             @id @default(cuid())
-  email             String             @unique
-  emailVerified     DateTime?
-  image             String?
-  isApproved        Boolean            @default(false)
-  password          String
-  role              Role               @default(USER)
-  username          String?            @unique
-  Account           Account[]
-  Cart              Cart?
-  Company           Company?
-  Contact           Contact?
-  Favorite          Favorite[]
-  Order             Order[]
-  Session           Session[]
-  UserPermission    UserPermission[]
-  VerificationToken VerificationToken?
+model Order {
+  id        String          @id @default(cuid())
+  createdAt DateTime        @default(now())
+  lineItems OrderLineItem[]
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 }
 
-model VerificationToken {
-  identifier String   @unique
-  token      String   @unique
-  expires    DateTime
-  userId     String   @unique
-  valid      Boolean  @default(true)
-  User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model OrderLineItem {
+  id       String @id @default(cuid())
+  quantity Int
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  unit  Unit  @relation(fields: [unitId], references: [id])
+
+  orderId String
+  unitId  String
 }
 
-model Permission {
-  id             String           @id @default(cuid())
-  name           String           @unique
-  description    String?
-  UserPermission UserPermission[]
-}
+model Favorite {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
 
-model UserPermission {
-  userId       String
-  permissionId String
-  Permission   Permission @relation(fields: [permissionId], references: [id])
-  User         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  juice   Product @relation(fields: [juiceId], references: [id])
+  juiceId String
 
-  @@unique([userId, permissionId])
-}
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 
-enum Role {
-  ADMIN
-  USER
+  @@unique([userId, juiceId])
 }

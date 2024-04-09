@@ -18,7 +18,7 @@ export const Approvals: FC<ApprovalsProps> = ({ className }) => {
       <FlexCol className='h-full'>
         <h2>Users Awaiting Approval</h2>
 
-        <ContainerFull className='border bg-chasers-tertiary h-full'>
+        <ContainerFull className='bg-chasers-primary h-full'>
           <FlexCol>
             <ContentContainer className='border'>user 1</ContentContainer>
             <ContentContainer className='border'>user 2</ContentContainer>

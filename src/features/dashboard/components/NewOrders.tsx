@@ -1,10 +1,4 @@
-import {
-  Container,
-  ContainerFull,
-  ContentContainer,
-  FlexCol,
-  Pagination,
-} from '@/shared/components';
+import { ContainerFull, FlexCol, Pagination } from '@/shared/components';
 import { merge } from '@/utils';
 import { FC } from 'react';
 
@@ -18,11 +12,11 @@ export const NewOrders: FC<NewOrdersProps> = ({ className }) => {
       <FlexCol className='h-full'>
         <h2>New Orders</h2>
 
-        <ContainerFull className='border bg-chasers-tertiary h-full'>
+        <ContainerFull className='bg-chasers-primary h-full'>
           <FlexCol>
-            <ContentContainer className='border'>order 1</ContentContainer>
-            <ContentContainer className='border'>order 2</ContentContainer>
-            <ContentContainer className='border'>order 3</ContentContainer>
+            <ContainerFull className='border'>order 1</ContainerFull>
+            <ContainerFull className='border'>order 2</ContainerFull>
+            <ContainerFull className='border'>order 3</ContainerFull>
           </FlexCol>
         </ContainerFull>
 
