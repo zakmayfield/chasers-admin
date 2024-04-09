@@ -1,13 +1,20 @@
 import {
+  Button,
   ContainerFull,
   ContentContainer,
   FlexCol,
   FlexRow,
   Spinner,
 } from '@/shared/components';
-import { useCustomQuery } from '@/shared/hooks';
+import { useCustomMutation, useCustomQuery } from '@/shared/hooks';
+import { authorizeAdmin } from '@/shared/services/mutations';
 import { getAuthorizedAdmins } from '@/shared/services/queries/admins/getAuthorizedAdmins';
-import { GetAuthorizedAdminsResponseData, QueryKeys } from '@/shared/types';
+import {
+  AuthorizeAdminRequestData,
+  AuthorizeAdminResponseData,
+  GetAuthorizedAdminsResponseData,
+  QueryKeys,
+} from '@/shared/types';
 import { merge } from '@/utils';
 import { FC } from 'react';
 
@@ -16,18 +23,30 @@ interface AuthorizedAdminsProps {
 }
 
 export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
-  const { data, isLoading, error, isError } =
-    useCustomQuery<GetAuthorizedAdminsResponseData>({
-      queryKey: [QueryKeys.AUTHORIZED_ADMINS],
-      queryFn: getAuthorizedAdmins,
-    });
+  const { data, isLoading } = useCustomQuery<GetAuthorizedAdminsResponseData>({
+    queryKey: [QueryKeys.AUTHORIZED_ADMINS],
+    queryFn: getAuthorizedAdmins,
+  });
+
+  const { mutate } = useCustomMutation<
+    AuthorizeAdminResponseData,
+    AuthorizeAdminRequestData
+  >({
+    mutationFn: authorizeAdmin,
+    onSuccessCallback(data) {
+      console.log('mutation:success', { data });
+    },
+    onErrorCallback(error) {
+      console.log('mutation:error', { error });
+    },
+  });
 
   return (
     <ContainerFull className={merge(`${className}`)}>
       <FlexCol className='h-full'>
         <h2>Authorized Admins</h2>
 
-        <ContainerFull className='bg-chasers-primary'>
+        <ContainerFull className='h-full bg-chasers-primary'>
           {isLoading ? (
             <FlexRow className='h-full items-center'>
               <Spinner className='text-4xl' />
@@ -35,13 +54,19 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
           ) : (
             <FlexCol>
               {data?.map((admin) => (
-                <ContentContainer key={admin.id} className='border'>
+                <ContainerFull key={admin.id} className='border'>
                   {admin.email}
-                </ContentContainer>
+                </ContainerFull>
               ))}
             </FlexCol>
           )}
         </ContainerFull>
+
+        <Button
+          content='authorize admin'
+          action={() => mutate({ email: 'zakmayfield@gmail.com' })}
+          className='border'
+        />
       </FlexCol>
     </ContainerFull>
   );

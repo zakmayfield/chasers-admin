@@ -1,12 +1,12 @@
 import { z } from 'zod';
 import { SignInValidator, SignUpValidator } from '@/shared/validators';
 import { FormEvent } from 'react';
-import { FieldValues } from 'react-hook-form';
-import { Permission, Role } from '@prisma/client';
+import { DefaultValues, FieldValues, Resolver } from 'react-hook-form';
+import { AuthorizedAdmin, Permission, Role } from '@prisma/client';
 import {
+  MutationFunction,
   QueryFunction,
   QueryKey,
-  UseMutateFunction,
 } from '@tanstack/react-query';
 
 //^ FORM TYPES
@@ -34,22 +34,35 @@ export type Paths = Record<Key, Path>;
 
 //^ HELPER TYPES
 export type FetchService = {
-  path: Path;
+  route: Path;
   options?: {
     urlExtension?: string;
     config?: RequestInit;
   };
 };
 
-//^ QUERIES / MUTATIONS
+//^ QUERIE KEYS
 export enum QueryKeys {
   ALL_ADMINS = 'admins:all',
   AUTHORIZED_ADMINS = 'admins:authorized',
 }
 
+//^ HOOKS
 export type UseCustomQueryProps<T> = {
   queryKey: QueryKey;
   queryFn: QueryFunction<T>;
+};
+
+export type UseCustomMutationProps<T, V> = {
+  mutationFn: MutationFunction<T, V>;
+  onSuccessCallback?(data: T): void;
+  onErrorCallback?(error: Error): void;
+};
+
+export type UseCustomFormProps<T extends FieldValues> = {
+  onSubmit: (formValues: T) => void;
+  resolver: Resolver<T>;
+  defaultValues: DefaultValues<T>;
 };
 
 //^ DATA TYPES
@@ -75,3 +88,10 @@ export type GetAuthorizedAdminsResponseData = {
 }[];
 
 export type GetAdminsResponseData = SecureUser[];
+
+export type AuthorizeAdminRequestData = {
+  email: string;
+};
+export type AuthorizeAdminResponseData = AuthorizedAdmin & {
+  success: true;
+};
