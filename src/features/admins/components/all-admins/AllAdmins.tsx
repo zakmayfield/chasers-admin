@@ -15,8 +15,6 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
     queryFn: getAdmins,
   });
 
-  // TODO: loading / error layout components
-
   return (
     <ContainerFull className={merge(`${className ?? ''}`)}>
       <FlexCol className='h-full'>
