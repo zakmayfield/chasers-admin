@@ -43,8 +43,8 @@ async function handler(req: Request) {
 
     return response;
   } catch (error) {
-    const { result } = errorResponseHandler(error);
-    return result;
+    const errorResponse = errorResponseHandler(error);
+    return errorResponse;
   }
 }
 
