@@ -7,26 +7,17 @@ const errorResponseHandler = (error: Error | unknown, statusCode?: number) => {
         // special errors
         switch (error.code) {
           case 'P2002':
-            const y = {
-              result: new Response('the requested record already exists', {
-                status: 409,
-              }),
-            };
-            return y;
+            return new Response('the requested record already exists', {
+              status: 409,
+            });
         }
       }
       // default error
-      const x = {
-        result: new Response(error.message, { status: statusCode ?? 500 }),
-      };
-      return x;
+      return new Response(error.message, { status: statusCode ?? 500 });
     }
   }
-  // fallback error
-  const z = {
-    result: new Response('unexpected server error', { status: 500 }),
-  };
-  return z;
+  // fallback errot
+  return new Response('unexpected server error', { status: 500 });
 };
 
 export default errorResponseHandler;
