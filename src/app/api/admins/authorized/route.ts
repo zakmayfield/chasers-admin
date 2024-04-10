@@ -1,6 +1,5 @@
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
-import { authorizePermissions } from '@/shared/helpers';
 import {
   apiErrorHandler,
   apiResponseHandler,
@@ -10,18 +9,12 @@ import { GetAuthorizedAdminsResponseData } from '@/shared/types';
 
 async function handler() {
   const session = await getAuthSession();
+  // TODO: send better data back with these helpers?
   const sessionError = apiSessionErrorHandler(session);
   if (sessionError) sessionError;
 
-  const userId = session?.user.id!;
-
   try {
-    const permissionsError = await authorizePermissions(userId, [
-      'admin:super',
-    ]);
-    if (permissionsError) {
-      return permissionsError;
-    }
+    // TODO implement Role based helpers
 
     const authorizedAdmins = await db.authorizedAdmin.findMany();
 
