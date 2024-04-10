@@ -1,7 +1,10 @@
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
-import { apiErrorHandler } from '@/shared/helpers';
-import { apiSessionErrorHandler } from '@/shared/helpers/apiSessionErrorHandler';
+import {
+  apiResponseHandler,
+  apiErrorHandler,
+  apiSessionErrorHandler,
+} from '@/shared/helpers/api';
 import {
   AuthorizeAdminRequestData,
   AuthorizeAdminResponseData,
@@ -10,14 +13,14 @@ import {
 async function handler(req: Request) {
   const session = await getAuthSession();
 
-  const authError = await apiSessionErrorHandler(session);
+  const authError = apiSessionErrorHandler(session);
   if (authError) {
     return authError;
   }
 
   const body: AuthorizeAdminRequestData = await req.json();
-  const { email } = body;
 
+  const { email } = body;
   if (!email) {
     return new Response('a valid email is required to make this request', {
       status: 400,
@@ -31,14 +34,18 @@ async function handler(req: Request) {
       },
     });
 
-    const response: AuthorizeAdminResponseData = {
+    const responseData: AuthorizeAdminResponseData = {
       ...authorizedAdminRecord,
       success: true,
     };
 
-    return new Response(JSON.stringify(response));
+    const response =
+      apiResponseHandler<AuthorizeAdminResponseData>(responseData);
+
+    return response;
   } catch (error) {
-    return apiErrorHandler(error);
+    const errorResponse = apiErrorHandler(error);
+    return errorResponse;
   }
 }
 
