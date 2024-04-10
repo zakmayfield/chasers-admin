@@ -1,9 +1,6 @@
 import { db } from '@/lib';
 
-export const authorizePermissions = async (
-  userId: string,
-  permissions: string[]
-) => {
+const authorizePermissions = async (userId: string, permissions: string[]) => {
   const adminPermissionRecord = await db.user.findUnique({
     where: { id: userId },
     select: {
@@ -25,3 +22,5 @@ export const authorizePermissions = async (
     });
   }
 };
+
+export default authorizePermissions;

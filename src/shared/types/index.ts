@@ -33,6 +33,7 @@ type Key = 'dashboard' | 'users' | 'orders' | 'admins';
 export type Paths = Record<Key, Path>;
 
 //^ HELPER TYPES
+// TODO: make name more descriptive
 export type FetchService = {
   route: Path;
   options?: {
