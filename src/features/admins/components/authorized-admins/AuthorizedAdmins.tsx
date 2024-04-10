@@ -8,7 +8,7 @@ import {
 } from '@/shared/components';
 import { useCustomMutation, useCustomQuery } from '@/shared/hooks';
 import { authorizeAdmin } from '@/shared/services/mutations';
-import { getAuthorizedAdmins } from '@/shared/services/queries/admins/getAuthorizedAdmins';
+import { getAuthorizedAdmins } from '@/shared/services/queries/admins';
 import {
   AuthorizeAdminRequestData,
   AuthorizeAdminResponseData,
