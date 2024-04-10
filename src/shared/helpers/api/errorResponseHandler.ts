@@ -1,23 +1,36 @@
+import { ErrorResult } from '@/shared/types';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
-const errorResponseHandler = (error: Error | unknown, statusCode?: number) => {
+const errorResponseHandler = (
+  error: Error | unknown,
+  statusCode?: number
+): ErrorResult => {
   if (error instanceof Error) {
     if (error instanceof Error) {
       if (error instanceof PrismaClientKnownRequestError) {
         // special errors
         switch (error.code) {
           case 'P2002':
-            return new Response('the requested record already exists', {
-              status: 409,
-            });
+            const y = {
+              result: new Response('the requested record already exists', {
+                status: 409,
+              }),
+            };
+            return y;
         }
       }
       // default error
-      return new Response(error.message, { status: statusCode ?? 500 });
+      const x = {
+        result: new Response(error.message, { status: statusCode ?? 500 }),
+      };
+      return x;
     }
   }
   // fallback error
-  return new Response('unexpected server error', { status: 500 });
+  const z = {
+    result: new Response('unexpected server error', { status: 500 }),
+  };
+  return z;
 };
 
 export default errorResponseHandler;

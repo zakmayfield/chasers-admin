@@ -67,6 +67,10 @@ export type ApiSessionErrorHandlerProps = {
 };
 export type ApiSessionErrorHandlerData = CompactUserData;
 
+export type ErrorResult = {
+  result: Response;
+};
+
 //^ QUERIE KEYS
 export enum QueryKeys {
   ALL_ADMINS = 'admins:all',
