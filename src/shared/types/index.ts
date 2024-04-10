@@ -80,6 +80,7 @@ export type SecureUser = {
 export enum Roles {
   ADMIN = 'ADMIN',
   USER = 'USER',
+  SUPER = 'SUPER',
 }
 
 export type GetAuthorizedAdminsResponseData = {
