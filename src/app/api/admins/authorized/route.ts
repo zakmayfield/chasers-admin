@@ -1,30 +1,37 @@
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
 import { authorizePermissions } from '@/shared/helpers';
+import {
+  apiErrorHandler,
+  apiResponseHandler,
+  apiSessionErrorHandler,
+} from '@/shared/helpers/api';
+import { GetAuthorizedAdminsResponseData } from '@/shared/types';
 
 async function handler() {
   const session = await getAuthSession();
-  if (!session || !session.user) {
-    return new Response('authentication error', { status: 401 });
-  }
+  const sessionError = apiSessionErrorHandler(session);
+  if (sessionError) sessionError;
+
+  const userId = session?.user.id!;
 
   try {
-    const authorizePermissionsResponse = await authorizePermissions(
-      session.user.id,
-      ['admin:super']
-    );
-    if (authorizePermissionsResponse) {
-      return authorizePermissionsResponse;
+    const permissionsError = await authorizePermissions(userId, [
+      'admin:super',
+    ]);
+    if (permissionsError) {
+      return permissionsError;
     }
 
     const authorizedAdmins = await db.authorizedAdmin.findMany();
-    return new Response(JSON.stringify(authorizedAdmins));
-  } catch (error) {
-    if (error instanceof Error) {
-      return new Response(error.message, { status: 500 });
-    }
 
-    return new Response('unexpected server error', { status: 500 });
+    const response =
+      apiResponseHandler<GetAuthorizedAdminsResponseData>(authorizedAdmins);
+
+    return response;
+  } catch (error) {
+    const errorResponse = apiErrorHandler(error);
+    return errorResponse;
   }
 }
 

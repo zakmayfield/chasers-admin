@@ -1,12 +1,14 @@
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
+import { apiSessionErrorHandler } from '@/shared/helpers/api';
 import { Roles, SecureUser } from '@/shared/types';
 
 async function handler() {
   const session = await getAuthSession();
-  if (!session || !session.user) {
-    return new Response('authentication error', { status: 401 });
-  }
+  const sessionError = apiSessionErrorHandler(session);
+  if (sessionError) sessionError;
+
+  const userId = session?.user.id!;
 
   try {
     const admins: SecureUser[] = await db.user.findMany({
@@ -27,11 +29,9 @@ async function handler() {
       },
     });
 
-    const filteredAdmins = admins.filter(
-      (admin) => admin.id !== session.user.id
-    );
+    const filteredAdmins = admins.filter((admin) => admin.id !== userId);
 
-    return new Response(JSON.stringify(admins));
+    return new Response(JSON.stringify(filteredAdmins));
   } catch (error) {
     if (error instanceof Error) {
       return new Response(error.message, { status: 500 });
