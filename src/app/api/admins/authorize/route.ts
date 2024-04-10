@@ -1,9 +1,9 @@
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
 import {
-  apiResponseHandler,
-  apiErrorHandler,
-  apiSessionErrorHandler,
+  errorResponseHandler,
+  successResponseHandler,
+  validateSession,
 } from '@/shared/helpers/api';
 import {
   AuthorizeAdminRequestData,
@@ -13,10 +13,9 @@ import {
 async function handler(req: Request) {
   const session = await getAuthSession();
 
-  const authError = apiSessionErrorHandler(session);
-  if (authError) {
-    return authError;
-  }
+  const { id } = validateSession({ session });
+
+  if (!id) new Response('unauthenticated', { status: 401 });
 
   const body: AuthorizeAdminRequestData = await req.json();
 
@@ -40,11 +39,11 @@ async function handler(req: Request) {
     };
 
     const response =
-      apiResponseHandler<AuthorizeAdminResponseData>(responseData);
+      successResponseHandler<AuthorizeAdminResponseData>(responseData);
 
     return response;
   } catch (error) {
-    const errorResponse = apiErrorHandler(error);
+    const errorResponse = errorResponseHandler(error);
     return errorResponse;
   }
 }

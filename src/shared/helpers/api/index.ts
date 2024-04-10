@@ -1,3 +1,3 @@
-export { default as apiErrorHandler } from './apiErrorHandler';
-export { default as apiResponseHandler } from './apiResponseHandler';
+export { default as errorResponseHandler } from './errorResponseHandler';
+export { default as successResponseHandler } from './successResponseHandler.ts';
 export { default as validateSession } from './validateSession';
