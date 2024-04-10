@@ -16,12 +16,12 @@ async function handler() {
   const userId = session?.user.id!;
 
   try {
-    const permissionsError = await authorizePermissions(userId, [
-      'admin:super',
-    ]);
-    if (permissionsError) {
-      return permissionsError;
-    }
+    // const permissionsError = await authorizePermissions(userId, [
+    //   'admin:super',
+    // ]);
+    // if (permissionsError) {
+    //   return permissionsError;
+    // }
 
     const authorizedAdmins = await db.authorizedAdmin.findMany();
 
