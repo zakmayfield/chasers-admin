@@ -1,10 +1,6 @@
-import { ErrorResult } from '@/shared/types';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
-const errorResponseHandler = (
-  error: Error | unknown,
-  statusCode?: number
-): ErrorResult => {
+const errorResponseHandler = (error: Error | unknown, statusCode?: number) => {
   if (error instanceof Error) {
     if (error instanceof Error) {
       if (error instanceof PrismaClientKnownRequestError) {
