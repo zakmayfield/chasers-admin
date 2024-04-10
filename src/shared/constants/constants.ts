@@ -1,10 +1,6 @@
-import { QueryKeys } from '@/shared/types';
-import { Paths } from '@/shared/types';
+import { Paths, QueryKeys } from '@/shared/types';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
-// TODO: implement on middleware matcher
-const matchingPaths = ['/dashboard', '/orders', '/users', '/admins'];
 
 export const paths: Paths = {
   dashboard: '/dashboard',
