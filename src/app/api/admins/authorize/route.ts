@@ -1,21 +1,26 @@
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
-import { authorizeAdmin } from '@/shared/services/mutations';
+import {
+  apiResponseHandler,
+  apiErrorHandler,
+  apiSessionErrorHandler,
+} from '@/shared/helpers/api';
 import {
   AuthorizeAdminRequestData,
   AuthorizeAdminResponseData,
 } from '@/shared/types';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 async function handler(req: Request) {
   const session = await getAuthSession();
-  if (!session || !session.user) {
-    return new Response('authentication error', { status: 401 });
+
+  const authError = apiSessionErrorHandler(session);
+  if (authError) {
+    return authError;
   }
 
   const body: AuthorizeAdminRequestData = await req.json();
-  const { email } = body;
 
+  const { email } = body;
   if (!email) {
     return new Response('a valid email is required to make this request', {
       status: 400,
@@ -29,30 +34,18 @@ async function handler(req: Request) {
       },
     });
 
-    const response: AuthorizeAdminResponseData = {
+    const responseData: AuthorizeAdminResponseData = {
       ...authorizedAdminRecord,
       success: true,
     };
 
-    return new Response(JSON.stringify(response));
+    const response =
+      apiResponseHandler<AuthorizeAdminResponseData>(responseData);
+
+    return response;
   } catch (error) {
-    if (error instanceof Error) {
-      if (error instanceof Error) {
-        if (error instanceof PrismaClientKnownRequestError) {
-          // special errors
-          switch (error.code) {
-            case 'P2002':
-              return new Response('the requested email already exists', {
-                status: 409,
-              });
-          }
-        }
-        // default error
-        return new Response(error.message, { status: 500 });
-      }
-      // fallback error
-      return new Response('unexpected server error', { status: 500 });
-    }
+    const errorResponse = apiErrorHandler(error);
+    return errorResponse;
   }
 }
 
