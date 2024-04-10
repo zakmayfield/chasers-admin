@@ -8,7 +8,7 @@ async function handler() {
   const sessionError = apiSessionErrorHandler(session);
   if (sessionError) sessionError;
 
-  const userId = session?.user.id!;
+  const userId = session?.user.id;
 
   try {
     const admins: SecureUser[] = await db.user.findMany({

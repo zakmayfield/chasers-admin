@@ -131,20 +131,17 @@ const callbacks: NextAuthCallbacks = {
   },
 
   async jwt({ token, user }) {
-    const u = await getUserByEmail(token.email);
+    const userRecord = await getUserByEmail(token.email);
 
-    if (!u) {
+    if (!userRecord) {
       token.id = user.id;
-      token.role = user.role;
-      token.email = user.email;
-
       return token;
     }
 
     return {
-      id: u.id,
-      role: u.role,
-      email: u.email,
+      id: userRecord.id,
+      role: userRecord.role,
+      email: userRecord.email,
     };
   },
 
