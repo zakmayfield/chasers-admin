@@ -8,6 +8,18 @@ import {
   QueryFunction,
   QueryKey,
 } from '@tanstack/react-query';
+import {
+  CustomThemeConfig,
+  KeyValuePair,
+  ResolvableTo,
+} from 'tailwindcss/types/config';
+
+//^ Tailwind
+export type TailwindKeyValue =
+  | ResolvableTo<KeyValuePair<string, string>>
+  | undefined;
+
+export type PartialConfig = Partial<CustomThemeConfig> | undefined;
 
 //^ FORM TYPES
 export type SignInFormData = z.infer<typeof SignInValidator>;
@@ -84,6 +96,7 @@ export enum Roles {
   SUPER = 'SUPER',
 }
 
+//^ RESPONSE / REQUEST TYPES
 export type GetAuthorizedAdminsResponseData = {
   id: string;
   email: string;

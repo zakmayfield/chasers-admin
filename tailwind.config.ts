@@ -1,5 +1,5 @@
+import { PartialConfig, TailwindKeyValue } from '@/shared/types';
 import type { Config } from 'tailwindcss';
-import { PartialConfig, TailwindKeyValue } from '@/types';
 
 export const colors: PartialConfig = {
   chasers: {
