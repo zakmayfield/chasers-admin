@@ -1,4 +1,4 @@
-import { fetchService } from '@/shared/helpers/fetchService';
+import { fetchService } from '@/shared/helpers';
 import {
   AuthorizeAdminRequestData,
   AuthorizeAdminResponseData,
