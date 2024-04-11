@@ -3,7 +3,6 @@ import { getToken, type JWT } from 'next-auth/jwt';
 import { NextResponse, type NextRequest } from 'next/server';
 import { Roles } from './shared/types';
 import { paths } from './shared/constants';
-import { authorizePermissions } from './shared/helpers/permissions';
 
 const secret = process.env.NEXTAUTH_SECRET;
 
