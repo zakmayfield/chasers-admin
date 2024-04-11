@@ -1,7 +1,8 @@
-import { ResponseData } from '@/shared/types/index';
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
-import { errorResponseHandler, validateSession } from '@/shared/helpers/api';
+import { errorResponseHandler } from '@/shared/helpers/api';
+import { validateRole } from '@/shared/helpers/role';
+import { validateSession } from '@/shared/helpers/session';
 import { Roles, SecureUser } from '@/shared/types';
 
 async function handler() {
@@ -9,9 +10,22 @@ async function handler() {
 
   const { id } = validateSession({ session });
 
-  if (!id) new Response('unauthenticated', { status: 401 });
+  if (!id) {
+    return new Response('unauthenticated', { status: 401 });
+  }
 
   try {
+    const { isAuthorized } = await validateRole({
+      userRole: session!.user.role,
+      accessLevel: Roles.SUPER,
+    });
+
+    if (!isAuthorized) {
+      return new Response('unauthorized', { status: 401 });
+    }
+
+    console.log({ isAuthorized });
+
     const admins: SecureUser[] = await db.user.findMany({
       where: {
         role: Roles.ADMIN,
