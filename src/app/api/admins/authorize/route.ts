@@ -4,10 +4,12 @@ import {
   errorResponseHandler,
   successResponseHandler,
 } from '@/shared/helpers/api';
+import { validateRole } from '@/shared/helpers/role';
 import { validateSession } from '@/shared/helpers/session';
 import {
   AuthorizeAdminRequestData,
   AuthorizeAdminResponseData,
+  Roles,
 } from '@/shared/types';
 
 async function handler(req: Request) {
@@ -15,7 +17,9 @@ async function handler(req: Request) {
 
   const { id } = validateSession({ session });
 
-  if (!id) new Response('unauthenticated', { status: 401 });
+  if (!id) {
+    return new Response('unauthenticated', { status: 401 });
+  }
 
   const body: AuthorizeAdminRequestData = await req.json();
 
@@ -27,6 +31,14 @@ async function handler(req: Request) {
   }
 
   try {
+    const { isAuthorized } = await validateRole({
+      userRole: session!.user.role,
+      accessLevel: Roles.SUPER,
+    });
+
+    if (!isAuthorized) {
+      return new Response('unauthorized', { status: 401 });
+    }
     const authorizedAdminRecord = await db.authorizedAdmin.create({
       data: {
         email,
