@@ -8,7 +8,7 @@ import {
   Input,
   InputError,
   InputLayout,
-  Spinner,
+  Loader,
 } from '@/shared/components';
 import { useAuthenticate, useCustomForm } from '@/shared/hooks';
 import { signInResolver } from '@/shared/validators/resolvers';
@@ -65,7 +65,7 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
         {methods.formState.isSubmitted &&
         methods.formState.isSubmitSuccessful ? (
           <Container className='h-12 flex items-center justify-center'>
-            <Spinner className='text-3xl' />
+            <Loader />
           </Container>
         ) : (
           <Button content='sign in' />

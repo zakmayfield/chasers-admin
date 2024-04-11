@@ -1,10 +1,9 @@
 import {
   Button,
   ContainerFull,
-  ContentContainer,
   FlexCol,
   FlexRow,
-  Spinner,
+  Loader,
 } from '@/shared/components';
 import { useCustomMutation, useCustomQuery } from '@/shared/hooks';
 import { authorizeAdmin } from '@/shared/services/mutations';
@@ -49,7 +48,7 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
         <ContainerFull className='h-full bg-chasers-primary'>
           {isLoading ? (
             <FlexRow className='h-full items-center'>
-              <Spinner className='text-4xl' />
+              <Loader />
             </FlexRow>
           ) : (
             <FlexCol>

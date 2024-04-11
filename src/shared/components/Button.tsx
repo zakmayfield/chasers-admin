@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { merge } from '@/utils';
-import { Spinner } from '@/shared/components';
+import { Loader } from '@/shared/components';
 
 interface ButtonProps {
   content: string;
@@ -31,7 +31,7 @@ export const Button: FC<ButtonProps> = ({
         bg-chasers-green hover:bg-chasers-green-light 
         border-chasers-green-light ${className ?? ''}`)}
     >
-      {isLoading ? <Spinner /> : content}
+      {isLoading ? <Loader /> : content}
     </button>
   );
 };

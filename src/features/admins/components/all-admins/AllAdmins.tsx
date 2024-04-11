@@ -1,4 +1,4 @@
-import { ContainerFull, FlexCol, FlexRow, Spinner } from '@/shared/components';
+import { ContainerFull, FlexCol, FlexRow, Loader } from '@/shared/components';
 import { useCustomQuery } from '@/shared/hooks';
 import { getAdmins } from '@/shared/services/queries';
 import { QueryKeys } from '@/shared/types';
@@ -23,7 +23,7 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
         <ContainerFull className='h-full min-h-[16.5rem] bg-chasers-primary'>
           {isLoading ? (
             <FlexRow className='h-full items-center'>
-              <Spinner className='text-4xl' />
+              <Loader />
             </FlexRow>
           ) : (
             <FlexRow>

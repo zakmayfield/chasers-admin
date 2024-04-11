@@ -11,4 +11,4 @@ export * from './Logo';
 export * from './PageHeader';
 export * from './PageLayout';
 export * from './Pagination';
-export * from './Spinner';
+export * from './loading';
