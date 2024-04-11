@@ -10,6 +10,6 @@ interface SpinnerProps {
 
 export const Spinner: FC<SpinnerProps> = ({ className }) => {
   return (
-    <SpinnerIcon className={merge(`spinner text-4xl ${className ?? ''}`)} />
+    <SpinnerIcon className={merge(`spinner text-3xl ${className ?? ''}`)} />
   );
 };

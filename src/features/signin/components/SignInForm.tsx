@@ -13,6 +13,7 @@ import {
 import { useAuthenticate, useCustomForm } from '@/shared/hooks';
 import { signInResolver } from '@/shared/validators/resolvers';
 import type { SignInFormData } from '@/shared/types';
+import { Spinner } from '@/shared/components/loading';
 
 interface SignInFormProps {}
 
@@ -64,8 +65,8 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
 
         {methods.formState.isSubmitted &&
         methods.formState.isSubmitSuccessful ? (
-          <Container className='h-12 flex items-center justify-center'>
-            <Loader />
+          <Container className='h-14 flex items-center justify-center'>
+            <Spinner />
           </Container>
         ) : (
           <Button content='sign in' />

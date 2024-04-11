@@ -1,9 +1,9 @@
 'use client';
 
 import { FC } from 'react';
-import { merge } from '@/utils';
 import { ContainerFull } from '../Containers';
 import { Spinner } from './Spinner';
+import { FlexRow } from '../Flex';
 
 interface LoaderProps {
   className?: string;
@@ -11,8 +11,10 @@ interface LoaderProps {
 
 export const Loader: FC<LoaderProps> = ({ className }) => {
   return (
-    <ContainerFull className={merge(`spinner text-2xl ${className ?? ''}`)}>
-      <Spinner />
+    <ContainerFull className='h-full'>
+      <FlexRow className='h-full items-center'>
+        <Spinner className={className} />
+      </FlexRow>
     </ContainerFull>
   );
 };

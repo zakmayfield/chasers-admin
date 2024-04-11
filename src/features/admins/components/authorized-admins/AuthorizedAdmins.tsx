@@ -47,9 +47,7 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
 
         <ContainerFull className='h-full bg-chasers-primary'>
           {isLoading ? (
-            <FlexRow className='h-full items-center'>
-              <Loader />
-            </FlexRow>
+            <Loader />
           ) : (
             <FlexCol>
               {data?.map((admin) => (

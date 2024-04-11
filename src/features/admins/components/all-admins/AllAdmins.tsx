@@ -22,9 +22,7 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
 
         <ContainerFull className='h-full min-h-[16.5rem] bg-chasers-primary'>
           {isLoading ? (
-            <FlexRow className='h-full items-center'>
-              <Loader />
-            </FlexRow>
+            <Loader />
           ) : (
             <FlexRow>
               {data?.map((admin) => (
