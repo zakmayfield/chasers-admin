@@ -11,7 +11,7 @@ import {
   Input,
   InputError,
   InputLayout,
-  Spinner,
+  Loader,
 } from '@/shared/components';
 
 interface SignUpFormProps {}
@@ -74,7 +74,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
         {methods.formState.isSubmitted &&
         methods.formState.isSubmitSuccessful ? (
           <Container className='h-12 flex items-center justify-center'>
-            <Spinner className='text-3xl' />
+            <Loader />
           </Container>
         ) : (
           <Button content='sign in' />
