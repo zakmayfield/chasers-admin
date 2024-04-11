@@ -1,4 +1,4 @@
-import { fetchService } from '@/shared/helpers';
+import { fetchHandler } from '@/shared/helpers';
 import {
   AuthorizeAdminRequestData,
   AuthorizeAdminResponseData,
@@ -7,7 +7,7 @@ import {
 export const authorizeAdmin = async (
   body: AuthorizeAdminRequestData
 ): Promise<AuthorizeAdminResponseData> =>
-  await fetchService({
+  await fetchHandler({
     route: '/admins',
     options: {
       urlExtension: '/authorize',

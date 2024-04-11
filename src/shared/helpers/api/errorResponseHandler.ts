@@ -1,6 +1,6 @@
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
-const apiErrorHandler = (error: Error | unknown) => {
+const errorResponseHandler = (error: Error | unknown, statusCode?: number) => {
   if (error instanceof Error) {
     if (error instanceof Error) {
       if (error instanceof PrismaClientKnownRequestError) {
@@ -13,11 +13,11 @@ const apiErrorHandler = (error: Error | unknown) => {
         }
       }
       // default error
-      return new Response(error.message, { status: 500 });
+      return new Response(error.message, { status: statusCode ?? 500 });
     }
   }
-  // fallback error
+  // fallback errot
   return new Response('unexpected server error', { status: 500 });
 };
 
-export default apiErrorHandler;
+export default errorResponseHandler;

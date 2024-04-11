@@ -13,6 +13,7 @@ import {
   KeyValuePair,
   ResolvableTo,
 } from 'tailwindcss/types/config';
+import { Session } from 'next-auth';
 
 //^ Tailwind
 export type TailwindKeyValue =
@@ -52,6 +53,22 @@ export type FetchService = {
     urlExtension?: string;
     config?: RequestInit;
   };
+};
+
+export type ResponseData = {
+  response: Response;
+};
+export type CompactUserData = {
+  id: string | null;
+  email: string | null;
+};
+export type ApiSessionErrorHandlerProps = {
+  session: Session | null;
+};
+export type ApiSessionErrorHandlerData = CompactUserData;
+
+export type ErrorResult = {
+  result: Response;
 };
 
 //^ QUERIE KEYS
