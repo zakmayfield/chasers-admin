@@ -1,7 +1,7 @@
-import { ResponseData } from '@/shared/types/index';
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
-import { errorResponseHandler, validateSession } from '@/shared/helpers/api';
+import { errorResponseHandler } from '@/shared/helpers/api';
+import { validateSession } from '@/shared/helpers/session';
 import { Roles, SecureUser } from '@/shared/types';
 
 async function handler() {

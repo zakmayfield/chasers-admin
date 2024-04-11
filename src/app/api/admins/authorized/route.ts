@@ -3,8 +3,8 @@ import { getAuthSession } from '@/lib/auth';
 import {
   errorResponseHandler,
   successResponseHandler,
-  validateSession,
 } from '@/shared/helpers/api';
+import { validateSession } from '@/shared/helpers/session';
 import { GetAuthorizedAdminsResponseData } from '@/shared/types';
 
 async function handler() {
