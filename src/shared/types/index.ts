@@ -8,6 +8,19 @@ import {
   QueryFunction,
   QueryKey,
 } from '@tanstack/react-query';
+import {
+  CustomThemeConfig,
+  KeyValuePair,
+  ResolvableTo,
+} from 'tailwindcss/types/config';
+import { Session } from 'next-auth';
+
+//^ Tailwind
+export type TailwindKeyValue =
+  | ResolvableTo<KeyValuePair<string, string>>
+  | undefined;
+
+export type PartialConfig = Partial<CustomThemeConfig> | undefined;
 
 //^ FORM TYPES
 export type SignInFormData = z.infer<typeof SignInValidator>;
@@ -33,12 +46,29 @@ type Key = 'dashboard' | 'users' | 'orders' | 'admins';
 export type Paths = Record<Key, Path>;
 
 //^ HELPER TYPES
+// TODO: make name more descriptive
 export type FetchService = {
   route: Path;
   options?: {
     urlExtension?: string;
     config?: RequestInit;
   };
+};
+
+export type ResponseData = {
+  response: Response;
+};
+export type CompactUserData = {
+  id: string | null;
+  email: string | null;
+};
+export type ApiSessionErrorHandlerProps = {
+  session: Session | null;
+};
+export type ApiSessionErrorHandlerData = CompactUserData;
+
+export type ErrorResult = {
+  result: Response;
 };
 
 //^ QUERIE KEYS
@@ -80,8 +110,10 @@ export type SecureUser = {
 export enum Roles {
   ADMIN = 'ADMIN',
   USER = 'USER',
+  SUPER = 'SUPER',
 }
 
+//^ RESPONSE / REQUEST TYPES
 export type GetAuthorizedAdminsResponseData = {
   id: string;
   email: string;

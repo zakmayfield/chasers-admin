@@ -1,14 +1,15 @@
+import { ResponseData } from '@/shared/types/index';
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
-import { apiSessionErrorHandler } from '@/shared/helpers/api';
+import { errorResponseHandler, validateSession } from '@/shared/helpers/api';
 import { Roles, SecureUser } from '@/shared/types';
 
 async function handler() {
   const session = await getAuthSession();
-  const sessionError = apiSessionErrorHandler(session);
-  if (sessionError) sessionError;
 
-  const userId = session?.user.id!;
+  const { id } = validateSession({ session });
+
+  if (!id) new Response('unauthenticated', { status: 401 });
 
   try {
     const admins: SecureUser[] = await db.user.findMany({
@@ -29,15 +30,12 @@ async function handler() {
       },
     });
 
-    const filteredAdmins = admins.filter((admin) => admin.id !== userId);
+    const filteredAdmins = admins.filter((admin) => admin.id !== id);
 
     return new Response(JSON.stringify(filteredAdmins));
   } catch (error) {
-    if (error instanceof Error) {
-      return new Response(error.message, { status: 500 });
-    }
-
-    return new Response('unexpected server error', { status: 500 });
+    const errorResponse = errorResponseHandler(error);
+    return errorResponse;
   }
 }
 

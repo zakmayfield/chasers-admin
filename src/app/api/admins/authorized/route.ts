@@ -1,36 +1,28 @@
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
-import { authorizePermissions } from '@/shared/helpers';
 import {
-  apiErrorHandler,
-  apiResponseHandler,
-  apiSessionErrorHandler,
+  errorResponseHandler,
+  successResponseHandler,
+  validateSession,
 } from '@/shared/helpers/api';
 import { GetAuthorizedAdminsResponseData } from '@/shared/types';
 
 async function handler() {
   const session = await getAuthSession();
-  const sessionError = apiSessionErrorHandler(session);
-  if (sessionError) sessionError;
 
-  const userId = session?.user.id!;
+  const { id } = validateSession({ session });
+
+  if (!id) new Response('unauthenticated', { status: 401 });
 
   try {
-    const permissionsError = await authorizePermissions(userId, [
-      'admin:super',
-    ]);
-    if (permissionsError) {
-      return permissionsError;
-    }
-
     const authorizedAdmins = await db.authorizedAdmin.findMany();
 
     const response =
-      apiResponseHandler<GetAuthorizedAdminsResponseData>(authorizedAdmins);
+      successResponseHandler<GetAuthorizedAdminsResponseData>(authorizedAdmins);
 
     return response;
   } catch (error) {
-    const errorResponse = apiErrorHandler(error);
+    const errorResponse = errorResponseHandler(error);
     return errorResponse;
   }
 }

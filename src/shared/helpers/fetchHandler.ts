@@ -1,7 +1,7 @@
 import { FetchService } from '@/shared/types';
 import { getUrl } from '@/utils';
 
-export const fetchService = async ({ route, options }: FetchService) => {
+export const fetchHandler = async ({ route, options }: FetchService) => {
   try {
     const url = getUrl({ route, options });
 
