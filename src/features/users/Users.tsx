@@ -12,7 +12,7 @@ interface UsersProps {}
 export const Users: FC<UsersProps> = ({}) => {
   return (
     <UsersLayout>
-      <PageHeader header='Users' />
+      <PageHeader title='Users' />
 
       <Approvals className='border col-span-full' />
       <AllUsers className='border col-span-3' />

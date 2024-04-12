@@ -8,7 +8,7 @@ interface OrdersProps {}
 export const Orders: FC<OrdersProps> = ({}) => {
   return (
     <OrdersLayout>
-      <PageHeader header='Orders' />
+      <PageHeader title='Orders' />
 
       <NewOrders className='border col-span-full' />
     </OrdersLayout>

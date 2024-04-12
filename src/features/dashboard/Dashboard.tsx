@@ -1,5 +1,3 @@
-'use client';
-
 import { FC } from 'react';
 import { NewOrders, NewUsers, Overview } from './components';
 import { DashboardLayout } from './components';
@@ -10,7 +8,7 @@ interface DashboardProps {}
 export const Dashboard: FC<DashboardProps> = ({}) => {
   return (
     <DashboardLayout>
-      <PageHeader header='Dashboard' />
+      <PageHeader title='Dashboard' />
 
       <Overview className='border col-span-4' />
       <NewOrders className='border col-span-2' />
