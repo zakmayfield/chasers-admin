@@ -1,3 +1,4 @@
+'use client';
 import { ContainerFull, FlexCol, FlexRow, Loader } from '@/shared/components';
 import { useCustomQuery } from '@/shared/hooks';
 import { getAdmins } from '@/shared/services/queries';

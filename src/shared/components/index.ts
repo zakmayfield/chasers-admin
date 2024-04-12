@@ -8,7 +8,7 @@ export * from './InputLayout';
 export * from './InputError';
 export * from './StyledLink';
 export * from './Logo';
-export * from './PageHeader';
+export * from './page-header/PageHeader';
 export * from './PageLayout';
 export * from './Pagination';
 export * from './loading';

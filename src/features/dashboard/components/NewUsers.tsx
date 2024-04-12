@@ -1,3 +1,5 @@
+'use client';
+
 import { ContainerFull, FlexCol, Pagination } from '@/shared/components';
 import { merge } from '@/utils';
 import { FC } from 'react';
