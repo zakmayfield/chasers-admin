@@ -6,7 +6,7 @@ export const useCustomForm = <T extends FormValues>({
   resolver,
   defaultValues,
 }: {
-  onSubmit: (formValues: T) => void;
+  onSubmit?: (formValues: T) => void;
   resolver: Resolver<T>;
   defaultValues: DefaultValues<T>;
 }) => {
@@ -18,7 +18,7 @@ export const useCustomForm = <T extends FormValues>({
   const handleSubmit = (e: FormEventType) => {
     e.preventDefault();
     const formValues = methods.getValues();
-    methods.handleSubmit(() => onSubmit(formValues))();
+    methods.handleSubmit(() => onSubmit?.(formValues))();
   };
 
   return { methods, handleSubmit };

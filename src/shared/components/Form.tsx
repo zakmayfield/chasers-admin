@@ -6,7 +6,7 @@ import { merge } from '@/utils';
 
 type FormProps<T extends FormValues> = {
   children: React.ReactNode;
-  handleSubmit: (e: FormEventType) => void;
+  handleSubmit?: (e: FormEventType) => void;
   methods: UseFormReturn<T, any, undefined>;
   className?: string;
 };

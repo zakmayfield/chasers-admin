@@ -1,5 +1,9 @@
 import { z } from 'zod';
-import { SignInValidator, SignUpValidator } from '@/shared/validators';
+import {
+  AuthorizedAdminsValidator,
+  SignInValidator,
+  SignUpValidator,
+} from '@/shared/validators';
 import { FormEvent } from 'react';
 import { DefaultValues, FieldValues, Resolver } from 'react-hook-form';
 import { AuthorizedAdmin, Permission, Role } from '@prisma/client';
@@ -29,6 +33,7 @@ export type OptionalSignInValues = {
   password?: string;
 };
 export type SignUpFormData = z.infer<typeof SignUpValidator>;
+export type AuthorizedAdminsData = z.infer<typeof AuthorizedAdminsValidator>;
 
 export type FormValues = FieldValues;
 

@@ -20,6 +20,7 @@ import { getAuthorizedAdmins } from '@/shared/services/queries/admins';
 import {
   AuthorizeAdminRequestData,
   AuthorizeAdminResponseData,
+  AuthorizedAdminsData,
   GetAuthorizedAdminsResponseData,
   QueryKeys,
 } from '@/shared/types';
@@ -38,12 +39,9 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
     email: '',
   };
 
-  const { methods, handleSubmit } = useCustomForm({
+  const { methods } = useCustomForm<AuthorizedAdminsData>({
     resolver: authorizedAdminsResolver,
     defaultValues,
-    onSubmit(formValues) {
-      mutate(formValues);
-    },
   });
 
   const { data, isLoading } = useCustomQuery<GetAuthorizedAdminsResponseData>({
@@ -59,11 +57,21 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
     onSuccessCallback(data) {
       console.log('mutation:success', { data });
       setIsForm(false);
+      methods.reset();
     },
     onErrorCallback(error) {
       console.log('mutation:error', { error });
     },
   });
+
+  const submitHandler = () => {
+    const formValues = methods.getValues();
+    submit(formValues);
+  };
+
+  const submit = (data: AuthorizedAdminsData) => {
+    methods.handleSubmit(() => mutate(data))();
+  };
 
   return (
     <ContainerFull className={merge(`${className}`)}>
@@ -72,11 +80,7 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
 
         {isForm ? (
           <ContainerFull className='bg-chasers-primary'>
-            <Form
-              methods={methods}
-              handleSubmit={handleSubmit}
-              className='mx-auto w-full'
-            >
+            <Form methods={methods} className='mx-auto w-full'>
               <h4 className='mb-6'>authorize a trusted email</h4>
               <InputLayout>
                 <Input
@@ -108,7 +112,11 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
           <Button content='authorize admin' action={() => setIsForm(true)} />
         ) : (
           <FlexRow>
-            <Button content='save' action={() => {}} className='flex-grow' />
+            <Button
+              content='save'
+              action={submitHandler}
+              className='flex-grow'
+            />
             <Button
               content='X'
               action={() => setIsForm(false)}
