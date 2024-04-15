@@ -5,21 +5,33 @@ export const useCustomForm = <T extends FormValues>({
   onSubmit,
   resolver,
   defaultValues,
+  action,
 }: {
-  onSubmit: (formValues: T) => void;
-  resolver: Resolver<T>;
   defaultValues: DefaultValues<T>;
+  onSubmit?: (formValues: T) => void;
+  resolver: Resolver<T>;
+  action?: (data: T) => void;
 }) => {
   const methods = useForm<T>({
     resolver,
     defaultValues,
   });
 
+  // TODO: remove `handleSubmit` after refactoring `SignInForm`
   const handleSubmit = (e: FormEventType) => {
     e.preventDefault();
     const formValues = methods.getValues();
-    methods.handleSubmit(() => onSubmit(formValues))();
+    methods.handleSubmit(() => onSubmit?.(formValues))();
   };
 
-  return { methods, handleSubmit };
+  const submitHandler = () => {
+    const formValues = methods.getValues();
+    submit(formValues);
+  };
+
+  const submit = (data: T) => {
+    methods.handleSubmit(() => action?.(data))();
+  };
+
+  return { methods, handleSubmit, submitHandler };
 };

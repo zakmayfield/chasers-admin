@@ -11,8 +11,8 @@ export const Admins: FC<AdminsProps> = ({}) => {
     <AdminsLayout>
       <PageHeader header='Admins' />
 
-      <AllAdmins className='border col-span-4' />
-      <AuthorizedAdmins className='border col-span-2' />
+      {/* <AllAdmins className='border col-span-4' /> */}
+      <AuthorizedAdmins className='border col-span-3' />
     </AdminsLayout>
   );
 };
