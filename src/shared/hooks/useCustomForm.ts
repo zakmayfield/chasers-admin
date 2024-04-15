@@ -17,6 +17,7 @@ export const useCustomForm = <T extends FormValues>({
     defaultValues,
   });
 
+  // TODO: remove `handleSubmit` after refactoring `SignInForm`
   const handleSubmit = (e: FormEventType) => {
     e.preventDefault();
     const formValues = methods.getValues();
