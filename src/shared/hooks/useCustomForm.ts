@@ -7,15 +7,21 @@ export const useCustomForm = <T extends FormValues>({
   defaultValues,
   action,
 }: {
+  defaultValues: DefaultValues<T>;
   onSubmit?: (formValues: T) => void;
   resolver: Resolver<T>;
   action?: (data: T) => void;
-  defaultValues: DefaultValues<T>;
 }) => {
   const methods = useForm<T>({
     resolver,
     defaultValues,
   });
+
+  const handleSubmit = (e: FormEventType) => {
+    e.preventDefault();
+    const formValues = methods.getValues();
+    methods.handleSubmit(() => onSubmit?.(formValues))();
+  };
 
   const submitHandler = () => {
     const formValues = methods.getValues();
@@ -26,5 +32,5 @@ export const useCustomForm = <T extends FormValues>({
     methods.handleSubmit(() => action?.(data))();
   };
 
-  return { methods, submitHandler };
+  return { methods, handleSubmit, submitHandler };
 };

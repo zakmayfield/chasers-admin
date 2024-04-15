@@ -23,23 +23,22 @@ export const SignInForm: FC<SignInFormProps> = ({}) => {
     password: '',
   };
 
-  const { methods, submitHandler } = useCustomForm<SignInFormData>({
+  const { methods, handleSubmit } = useCustomForm<SignInFormData>({
     resolver: signInResolver,
     defaultValues,
-    action: signInAction,
+
+    onSubmit(formValues) {
+      authenticate(formValues);
+    },
   });
 
   const { authenticate } = useAuthenticate<SignInFormData>({
     type: 'signin',
   });
 
-  function signInAction(data: SignInFormData) {
-    authenticate(data);
-  }
-
   return (
     <div>
-      <Form methods={methods} handleSubmit={submitHandler}>
+      <Form methods={methods} handleSubmit={handleSubmit}>
         <InputLayout>
           <Input
             label='username'
