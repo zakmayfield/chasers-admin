@@ -14,6 +14,7 @@ import {
   useCustomForm,
   useCustomMutation,
   useCustomQuery,
+  useToast,
 } from '@/shared/hooks';
 import { authorizeAdmin } from '@/shared/services/mutations';
 import { getAuthorizedAdmins } from '@/shared/services/queries/admins';
@@ -33,6 +34,7 @@ interface AuthorizedAdminsProps {
 }
 
 export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
+  const { notify } = useToast();
   const [isForm, setIsForm] = useState(false);
 
   const defaultValues = {
@@ -51,12 +53,11 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
   >({
     mutationFn: authorizeAdmin,
     onSuccessCallback(data) {
-      console.log('mutation:success', { data });
-      setIsForm(false);
-      methods.reset();
+      notify(`Successfully authorized: ${data.email}`);
+      resetForm();
     },
     onErrorCallback(error) {
-      console.log('mutation:error', { error });
+      notify(error.message, 'error');
     },
   });
 
@@ -67,6 +68,11 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
 
   function handleMutationAction(data: AuthorizedAdminsData) {
     mutate(data);
+  }
+
+  function resetForm() {
+    setIsForm(false);
+    methods.reset();
   }
 
   return (
@@ -115,7 +121,7 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
             />
             <Button
               content='X'
-              action={() => setIsForm(false)}
+              action={resetForm}
               className='bg-red-400 hover:bg-red-400/90'
             />
           </FlexRow>
