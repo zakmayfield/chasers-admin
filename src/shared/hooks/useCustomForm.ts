@@ -5,9 +5,11 @@ export const useCustomForm = <T extends FormValues>({
   onSubmit,
   resolver,
   defaultValues,
+  action,
 }: {
   onSubmit?: (formValues: T) => void;
   resolver: Resolver<T>;
+  action?: (data: T) => void;
   defaultValues: DefaultValues<T>;
 }) => {
   const methods = useForm<T>({
@@ -21,5 +23,14 @@ export const useCustomForm = <T extends FormValues>({
     methods.handleSubmit(() => onSubmit?.(formValues))();
   };
 
-  return { methods, handleSubmit };
+  const submitHandler = () => {
+    const formValues = methods.getValues();
+    submit(formValues);
+  };
+
+  const submit = (data: T) => {
+    methods.handleSubmit(() => action?.(data))();
+  };
+
+  return { methods, handleSubmit, submitHandler };
 };

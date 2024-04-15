@@ -39,14 +39,10 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
     email: '',
   };
 
-  const { methods } = useCustomForm<AuthorizedAdminsData>({
-    resolver: authorizedAdminsResolver,
+  const { methods, submitHandler } = useCustomForm<AuthorizedAdminsData>({
     defaultValues,
-  });
-
-  const { data, isLoading } = useCustomQuery<GetAuthorizedAdminsResponseData>({
-    queryKey: [QueryKeys.AUTHORIZED_ADMINS],
-    queryFn: getAuthorizedAdmins,
+    resolver: authorizedAdminsResolver,
+    action: handleMutationAction,
   });
 
   const { mutate } = useCustomMutation<
@@ -64,14 +60,14 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
     },
   });
 
-  const submitHandler = () => {
-    const formValues = methods.getValues();
-    submit(formValues);
-  };
+  const { data, isLoading } = useCustomQuery<GetAuthorizedAdminsResponseData>({
+    queryKey: [QueryKeys.AUTHORIZED_ADMINS],
+    queryFn: getAuthorizedAdmins,
+  });
 
-  const submit = (data: AuthorizedAdminsData) => {
-    methods.handleSubmit(() => mutate(data))();
-  };
+  function handleMutationAction(data: AuthorizedAdminsData) {
+    mutate(data);
+  }
 
   return (
     <ContainerFull className={merge(`${className}`)}>
