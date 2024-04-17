@@ -138,9 +138,10 @@ export type CreateAdminRequestData = {
 };
 export type CreateAdminResponseData = SecureUser;
 
-export type UpdatePasswordRequestData = {
+export type ChangePasswordRequestData = {
   newPassword: string;
 };
-export type UpdatePasswordResponseData = {
+export type ChangePasswordResponseData = {
+  id: string;
   success: boolean;
 };
