@@ -8,6 +8,7 @@ import { validateSession } from '@/shared/helpers/session';
 import {
   ApiSessionErrorHandlerData,
   CreateAdminRequestData,
+  Roles,
   SecureUser,
 } from '@/shared/types';
 import { hashPassword } from '@/utils/auth';
@@ -49,6 +50,7 @@ async function requestHandler(
         email: body.email,
         password: hashedPassword,
         username: uniqueUsername,
+        role: Roles.ADMIN,
       },
       select: {
         id: true,

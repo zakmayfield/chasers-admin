@@ -54,7 +54,7 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
     CreateAdminRequestData
   >({
     mutationFn: createAdmin,
-    onSuccessCallback(data) {
+    onSuccessCallback() {
       notify(`Successfully created admin account`);
     },
   });
