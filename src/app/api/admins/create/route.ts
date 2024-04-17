@@ -39,12 +39,6 @@ async function requestHandler(
     const uniqueUsername = uuidv4().slice(0, 10);
     const hashedPassword = await hashPassword(uniquePassword);
 
-    console.log({
-      id: 1,
-      uniquePassword,
-      uniqueUsername,
-    });
-
     const admin: SecureUser = await db.user.create({
       data: {
         email: body.email,
@@ -67,13 +61,6 @@ async function requestHandler(
     });
 
     const response = successResponseHandler(admin);
-
-    console.log({
-      id: 2,
-      admin,
-      response,
-    });
-
     return response;
   } catch (error) {
     const errorResponse = errorResponseHandler(error);
