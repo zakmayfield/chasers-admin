@@ -6,7 +6,7 @@ import {
 } from '@/shared/validators';
 import { FormEvent } from 'react';
 import { DefaultValues, FieldValues, Resolver } from 'react-hook-form';
-import { AuthorizedAdmin, Permission, Role } from '@prisma/client';
+import { AuthorizedAdmin, Permission, Role, User } from '@prisma/client';
 import {
   MutationFunction,
   QueryFunction,
@@ -132,3 +132,8 @@ export type AuthorizeAdminRequestData = {
 export type AuthorizeAdminResponseData = AuthorizedAdmin & {
   success: true;
 };
+
+export type CreateAdminRequestData = {
+  email: string;
+};
+export type CreateAdminResponseData = SecureUser;
