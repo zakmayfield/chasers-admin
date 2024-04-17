@@ -16,12 +16,14 @@ import {
   useCustomQuery,
   useToast,
 } from '@/shared/hooks';
-import { authorizeAdmin } from '@/shared/services/mutations';
+import { authorizeAdmin, createAdmin } from '@/shared/services/mutations';
 import { getAuthorizedAdmins } from '@/shared/services/queries/admins';
 import {
   AuthorizeAdminRequestData,
   AuthorizeAdminResponseData,
   AuthorizedAdminsData,
+  CreateAdminRequestData,
+  CreateAdminResponseData,
   GetAuthorizedAdminsResponseData,
   QueryKeys,
 } from '@/shared/types';
@@ -47,6 +49,16 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
     action: handleMutationAction,
   });
 
+  const { mutate: createAdminAccount } = useCustomMutation<
+    CreateAdminResponseData,
+    CreateAdminRequestData
+  >({
+    mutationFn: createAdmin,
+    onSuccessCallback() {
+      notify(`Successfully created admin account`);
+    },
+  });
+
   const { mutate } = useCustomMutation<
     AuthorizeAdminResponseData,
     AuthorizeAdminRequestData
@@ -54,6 +66,7 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
     mutationFn: authorizeAdmin,
     onSuccessCallback(data) {
       notify(`Successfully authorized: ${data.email}`);
+      createAdminAccount(data);
       resetForm();
     },
     onErrorCallback(error) {
