@@ -137,3 +137,10 @@ export type CreateAdminRequestData = {
   email: string;
 };
 export type CreateAdminResponseData = SecureUser;
+
+export type UpdatePasswordRequestData = {
+  newPassword: string;
+};
+export type UpdatePasswordResponseData = {
+  success: boolean;
+};
