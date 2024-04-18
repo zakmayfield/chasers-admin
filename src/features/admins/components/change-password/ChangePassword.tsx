@@ -70,12 +70,12 @@ function ChangePasswordForm() {
       </InputLayout>
       <InputError fieldError={methods.formState.errors.password} />
 
-      <ContainerFull className='p-comfy-none min-h-12 max-h-12'>
+      <ContainerFull className='p-comfy-none min-h-10 max-h-10'>
         {methods.formState.isSubmitted &&
         methods.formState.isSubmitSuccessful ? (
           <Spinner />
         ) : (
-          <Button content='save' className='w-full' />
+          <Button content='save' className='w-full min-h-max' />
         )}
       </ContainerFull>
     </Form>
