@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   ContainerFull,
+  FlexCol,
   FlexRow,
   Form,
   Input,
@@ -26,8 +27,12 @@ interface ChangePasswordProps {
 
 export const ChangePassword: FC<ChangePasswordProps> = ({ className }) => {
   return (
-    <ContainerFull className={merge(`${className ?? ''}`)}>
-      <ChangePasswordForm />
+    <ContainerFull className={merge(`border ${className ?? ''}`)}>
+      <FlexCol className='h-full'>
+        <h2>Change Password</h2>
+
+        <ChangePasswordForm />
+      </FlexCol>
     </ContainerFull>
   );
 };
@@ -60,24 +65,30 @@ function ChangePasswordForm() {
   });
 
   return (
-    <Form methods={methods} handleSubmit={submitHandler}>
-      <InputLayout>
-        <Input
-          label='change password'
-          name='password'
-          props={{ type: 'password', placeholder: 'password', required: true }}
-        />
-      </InputLayout>
-      <InputError fieldError={methods.formState.errors.password} />
+    <Form methods={methods} handleSubmit={submitHandler} className='w-full'>
+      <FlexCol>
+        <InputLayout>
+          <Input
+            label='password'
+            name='password'
+            props={{
+              type: 'password',
+              placeholder: 'password',
+              required: true,
+            }}
+          />
+        </InputLayout>
+        <InputError fieldError={methods.formState.errors.password} />
 
-      <ContainerFull className='p-comfy-none min-h-10 max-h-10'>
-        {methods.formState.isSubmitted &&
-        methods.formState.isSubmitSuccessful ? (
-          <Spinner />
-        ) : (
-          <Button content='save' className='w-full min-h-max' />
-        )}
-      </ContainerFull>
+        <ContainerFull className='p-comfy-none min-h-10 max-h-10'>
+          {methods.formState.isSubmitted &&
+          methods.formState.isSubmitSuccessful ? (
+            <Spinner />
+          ) : (
+            <Button content='save' className='w-full min-h-max' />
+          )}
+        </ContainerFull>
+      </FlexCol>
     </Form>
   );
 }
