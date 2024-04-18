@@ -21,6 +21,7 @@ export const colors: PartialConfig = {
 };
 
 export const padding: TailwindKeyValue = {
+  'comfy-none': '0',
   'comfy-xs': '1rem',
   'comfy-sm': '1.5rem',
   'comfy-md': '3rem',

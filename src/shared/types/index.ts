@@ -46,7 +46,13 @@ export interface CreateUser extends SignUpFormData {
 }
 
 //^ PATH TYPES
-export type Path = '/dashboard' | '/users' | '/orders' | '/admins';
+export type Path =
+  | '/dashboard'
+  | '/users'
+  | '/orders'
+  | '/admins'
+  | '/auth'
+  | '/sandbox';
 type Key = 'dashboard' | 'users' | 'orders' | 'admins';
 export type Paths = Record<Key, Path>;
 
@@ -137,3 +143,11 @@ export type CreateAdminRequestData = {
   email: string;
 };
 export type CreateAdminResponseData = SecureUser;
+
+export type ChangePasswordRequestData = {
+  password: string;
+};
+export type ChangePasswordResponseData = {
+  id: string;
+  success: boolean;
+};
