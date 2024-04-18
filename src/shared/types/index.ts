@@ -145,7 +145,7 @@ export type CreateAdminRequestData = {
 export type CreateAdminResponseData = SecureUser;
 
 export type ChangePasswordRequestData = {
-  newPassword: string;
+  password: string;
 };
 export type ChangePasswordResponseData = {
   id: string;
