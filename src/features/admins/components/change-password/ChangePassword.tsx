@@ -3,10 +3,12 @@ import {
   Button,
   Container,
   ContainerFull,
+  FlexRow,
   Form,
   Input,
   InputError,
   InputLayout,
+  Spinner,
 } from '@/shared/components';
 import { useCustomForm, useCustomMutation, useToast } from '@/shared/hooks';
 import { changePassword } from '@/shared/services/mutations';
@@ -68,7 +70,14 @@ function ChangePasswordForm() {
       </InputLayout>
       <InputError fieldError={methods.formState.errors.password} />
 
-      <Button content='save' className='min-h-8' />
+      <ContainerFull className='p-comfy-none min-h-12 max-h-12'>
+        {methods.formState.isSubmitted &&
+        methods.formState.isSubmitSuccessful ? (
+          <Spinner />
+        ) : (
+          <Button content='save' className='w-full' />
+        )}
+      </ContainerFull>
     </Form>
   );
 }
