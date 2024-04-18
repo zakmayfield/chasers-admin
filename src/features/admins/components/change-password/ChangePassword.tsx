@@ -49,6 +49,7 @@ function ChangePasswordForm() {
     mutationFn: changePassword,
     onSuccessCallback(data) {
       notify('Successfully changed password');
+      methods.reset();
     },
     onErrorCallback(error) {
       console.log(`mutation:error`, { error });
