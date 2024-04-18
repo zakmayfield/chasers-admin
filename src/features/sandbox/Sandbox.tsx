@@ -1,5 +1,4 @@
 import { StyledLink } from '@/shared/components';
-import Link from 'next/link';
 import { FC } from 'react';
 
 interface SandboxProps {}
@@ -12,6 +11,7 @@ export const Sandbox: FC<SandboxProps> = ({}) => {
       <nav className='flex gap-3'>
         <StyledLink path='/sandbox/container' content='container' />
         <StyledLink path='/sandbox/grid' content='grid' />
+        <StyledLink path='/sandbox/change-password' content='change password' />
       </nav>
     </div>
   );
