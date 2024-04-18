@@ -11,10 +11,10 @@ export const Dashboard: FC<DashboardProps> = ({}) => {
   return (
     <DashboardLayout>
       <PageHeader header='Dashboard' />
-
       <Overview className='border col-span-4' />
       <NewOrders className='border col-span-2' />
       <NewUsers className='border col-span-2' />
+      // TODO: ChangePassword
     </DashboardLayout>
   );
 };

@@ -1,3 +1,4 @@
+'use client';
 import { DefaultValues, Resolver, useForm } from 'react-hook-form';
 import type { FormEventType, FormValues } from '@/shared/types';
 
