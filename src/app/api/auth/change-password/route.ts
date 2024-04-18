@@ -1,6 +1,9 @@
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
-import { errorResponseHandler } from '@/shared/helpers/api';
+import {
+  errorResponseHandler,
+  successResponseHandler,
+} from '@/shared/helpers/api';
 import { validateSession } from '@/shared/helpers/session';
 import {
   ChangePasswordRequestData,
@@ -10,7 +13,7 @@ import {
 import { hashPassword } from '@/utils/auth';
 import { compare } from 'bcryptjs';
 
-export async function handler(req: Request) {
+async function handler(req: Request) {
   const session = await getAuthSession();
   const sessionData = validateSession({ session });
   const body: ChangePasswordRequestData = await req.json();
@@ -59,9 +62,11 @@ async function handleRequest(
       success: true,
     };
 
-    return response;
+    return successResponseHandler(response);
   } catch (error) {
     const errorResponse = errorResponseHandler(error);
     return errorResponse;
   }
 }
+
+export { handler as PUT };
