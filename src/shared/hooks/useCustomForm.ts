@@ -25,7 +25,8 @@ export const useCustomForm = <T extends FormValues>({
     methods.handleSubmit(() => onSubmit?.(formValues))();
   };
 
-  const submitHandler = () => {
+  const submitHandler = (e?: FormEventType) => {
+    e?.preventDefault();
     const formValues = methods.getValues();
     submit(formValues);
   };
