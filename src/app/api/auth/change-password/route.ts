@@ -64,12 +64,6 @@ async function handleRequest(
       success: true,
     };
 
-    console.log({
-      isValidPassword,
-      hashedPassword,
-      admin,
-    });
-
     return successResponseHandler(response);
   } catch (error) {
     const errorResponse = errorResponseHandler(error);
