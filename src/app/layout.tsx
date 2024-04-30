@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Providers } from '@/lib';
 import { PageLayout } from '@/shared/components';
+
 import './globals.css';
 
 const quicksand = Quicksand({ subsets: ['latin'] });
@@ -28,7 +29,12 @@ export default function RootLayout({
           </Providers>
         </main>
 
-        <ToastContainer limit={4} autoClose={3000} position='bottom-right' />
+        <ToastContainer
+          limit={4}
+          autoClose={3000}
+          position='bottom-right'
+          theme='dark'
+        />
       </body>
     </html>
   );

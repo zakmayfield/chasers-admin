@@ -1,2 +1,1 @@
-export * from './authorizePermissions';
-export * from './fetchService';
+export * from './fetchHandler';

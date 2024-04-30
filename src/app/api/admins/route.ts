@@ -1,14 +1,31 @@
 import { db } from '@/lib';
 import { getAuthSession } from '@/lib/auth';
+import { errorResponseHandler } from '@/shared/helpers/api';
+import { validateRole } from '@/shared/helpers/role';
+import { validateSession } from '@/shared/helpers/session';
 import { Roles, SecureUser } from '@/shared/types';
 
 async function handler() {
   const session = await getAuthSession();
-  if (!session || !session.user) {
-    return new Response('authentication error', { status: 401 });
+
+  const { id } = validateSession({ session });
+
+  if (!id) {
+    return new Response('unauthenticated', { status: 401 });
   }
 
   try {
+    const { isAuthorized } = await validateRole({
+      userRole: session!.user.role,
+      accessLevel: Roles.SUPER,
+    });
+
+    if (!isAuthorized) {
+      return new Response('unauthorized', { status: 401 });
+    }
+
+    console.log({ isAuthorized });
+
     const admins: SecureUser[] = await db.user.findMany({
       where: {
         role: Roles.ADMIN,
@@ -27,17 +44,12 @@ async function handler() {
       },
     });
 
-    const filteredAdmins = admins.filter(
-      (admin) => admin.id !== session.user.id
-    );
+    const filteredAdmins = admins.filter((admin) => admin.id !== id);
 
-    return new Response(JSON.stringify(admins));
+    return new Response(JSON.stringify(filteredAdmins));
   } catch (error) {
-    if (error instanceof Error) {
-      return new Response(error.message, { status: 500 });
-    }
-
-    return new Response('unexpected server error', { status: 500 });
+    const errorResponse = errorResponseHandler(error);
+    return errorResponse;
   }
 }
 
