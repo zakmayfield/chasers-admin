@@ -8,7 +8,6 @@ import {
   Input,
   InputError,
   InputLayout,
-  Loader,
 } from '@/shared/components';
 import { useAuthenticate, useCustomForm } from '@/shared/hooks';
 import { signInResolver } from '@/shared/validators/resolvers';
