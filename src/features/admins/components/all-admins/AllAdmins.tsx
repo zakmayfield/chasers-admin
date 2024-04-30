@@ -1,8 +1,8 @@
-import { ContainerFull, FlexCol, FlexRow, Spinner } from '@/shared/components';
+import { ContainerFull, FlexCol, FlexRow, Loader } from '@/shared/components';
+import { useCustomQuery } from '@/shared/hooks';
 import { getAdmins } from '@/shared/services/queries';
-import { GetAdminsData, QueryKeys } from '@/shared/types';
+import { QueryKeys } from '@/shared/types';
 import { merge } from '@/utils';
-import { useQuery } from '@tanstack/react-query';
 import { FC } from 'react';
 
 interface AllAdminsProps {
@@ -10,7 +10,7 @@ interface AllAdminsProps {
 }
 
 export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
-  const { data, isLoading, error } = useQuery<GetAdminsData, Error>({
+  const { data, isLoading, error, isError } = useCustomQuery({
     queryKey: [QueryKeys.ALL_ADMINS],
     queryFn: getAdmins,
   });
@@ -22,9 +22,7 @@ export const AllAdmins: FC<AllAdminsProps> = ({ className }) => {
 
         <ContainerFull className='h-full min-h-[16.5rem] bg-chasers-primary'>
           {isLoading ? (
-            <FlexRow className='h-full items-center'>
-              <Spinner className='text-4xl' />
-            </FlexRow>
+            <Loader />
           ) : (
             <FlexRow>
               {data?.map((admin) => (

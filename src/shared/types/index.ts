@@ -1,11 +1,112 @@
 import { z } from 'zod';
-import { SignInValidator, SignUpValidator } from '@/shared/validators';
+import {
+  AuthorizedAdminsValidator,
+  SignInValidator,
+  SignUpValidator,
+} from '@/shared/validators';
 import { FormEvent } from 'react';
-import { FieldValues } from 'react-hook-form';
-import { Permission, Role } from '@prisma/client';
-import { UseMutateFunction } from '@tanstack/react-query';
+import { DefaultValues, FieldValues, Resolver } from 'react-hook-form';
+import { AuthorizedAdmin, Permission, Role, User } from '@prisma/client';
+import {
+  MutationFunction,
+  QueryFunction,
+  QueryKey,
+} from '@tanstack/react-query';
+import {
+  CustomThemeConfig,
+  KeyValuePair,
+  ResolvableTo,
+} from 'tailwindcss/types/config';
+import { Session } from 'next-auth';
 
-//^ GENERAL
+//^ Tailwind
+export type TailwindKeyValue =
+  | ResolvableTo<KeyValuePair<string, string>>
+  | undefined;
+
+export type PartialConfig = Partial<CustomThemeConfig> | undefined;
+
+//^ FORM TYPES
+export type SignInFormData = z.infer<typeof SignInValidator>;
+export type OptionalSignInValues = {
+  username?: string;
+  password?: string;
+};
+export type SignUpFormData = z.infer<typeof SignUpValidator>;
+export type AuthorizedAdminsData = z.infer<typeof AuthorizedAdminsValidator>;
+
+export type FormValues = FieldValues;
+
+export type FormEventType = FormEvent<HTMLFormElement>;
+export type ButtonEventType = React.MouseEvent<HTMLButtonElement>;
+
+//^ UTIL TYPES
+export interface CreateUser extends SignUpFormData {
+  role: Role;
+}
+
+//^ PATH TYPES
+export type Path =
+  | '/dashboard'
+  | '/users'
+  | '/orders'
+  | '/admins'
+  | '/auth'
+  | '/sandbox';
+type Key = 'dashboard' | 'users' | 'orders' | 'admins';
+export type Paths = Record<Key, Path>;
+
+//^ HELPER TYPES
+// TODO: make name more descriptive
+export type FetchService = {
+  route: Path;
+  options?: {
+    urlExtension?: string;
+    config?: RequestInit;
+  };
+};
+
+export type ResponseData = {
+  response: Response;
+};
+export type CompactUserData = {
+  id: string | null;
+  email: string | null;
+};
+export type ApiSessionErrorHandlerProps = {
+  session: Session | null;
+};
+export type ApiSessionErrorHandlerData = CompactUserData;
+
+export type ErrorResult = {
+  result: Response;
+};
+
+//^ QUERIE KEYS
+export enum QueryKeys {
+  ALL_ADMINS = 'admins:all',
+  AUTHORIZED_ADMINS = 'admins:authorized',
+}
+
+//^ HOOKS
+export type UseCustomQueryProps<T> = {
+  queryKey: QueryKey;
+  queryFn: QueryFunction<T>;
+};
+
+export type UseCustomMutationProps<T, V> = {
+  mutationFn: MutationFunction<T, V>;
+  onSuccessCallback?(data: T): void;
+  onErrorCallback?(error: Error): void;
+};
+
+export type UseCustomFormProps<T extends FieldValues> = {
+  onSubmit: (formValues: T) => void;
+  resolver: Resolver<T>;
+  defaultValues: DefaultValues<T>;
+};
+
+//^ DATA TYPES
 export type SecureUser = {
   id: string;
   email: string;
@@ -17,59 +118,36 @@ export type SecureUser = {
   }[];
 };
 
-//^ FORMS
-export type SignInFormData = z.infer<typeof SignInValidator>;
-export type OptionalSignInValues = {
-  username?: string;
-  password?: string;
-};
-export type SignUpFormData = z.infer<typeof SignUpValidator>;
-
-export type FormValues = FieldValues;
-
-export type FormEventType = FormEvent<HTMLFormElement>;
-export type ButtonEventType = React.MouseEvent<HTMLButtonElement>;
-
-//^ AUTH
-export interface CreateUser extends SignUpFormData {
-  role: Role;
-}
-
-//^ ROLES
 export enum Roles {
   ADMIN = 'ADMIN',
   USER = 'USER',
+  SUPER = 'SUPER',
 }
 
-//^ PATHS
-export type Path = '/dashboard' | '/users' | '/orders' | '/admins';
-type Key = 'dashboard' | 'users' | 'orders' | 'admins';
-export type Paths = Record<Key, Path>;
-
-//^ SERVICES
-export type FetchService = {
-  path: Path;
-  options?: {
-    urlExtension?: string;
-    config?: RequestInit;
-  };
-};
-
-export type FetchResponse<T> = Promise<any>;
-
-//^ MUTATIONS
-export type MutateFunction<T> = UseMutateFunction<T, Error, void, unknown>;
-
-export enum QueryKeys {
-  ALL_ADMINS = 'admins:all',
-  AUTHORIZED_ADMINS = 'admins:authorized',
-}
-
-export type GetAdminsResponse = Promise<SecureUser[]>;
-export type GetAdminsData = SecureUser[];
-
-//^ API
-export type AuthorizedAdminsResponseData = {
+//^ RESPONSE / REQUEST TYPES
+export type GetAuthorizedAdminsResponseData = {
   id: string;
   email: string;
 }[];
+
+export type GetAdminsResponseData = SecureUser[];
+
+export type AuthorizeAdminRequestData = {
+  email: string;
+};
+export type AuthorizeAdminResponseData = AuthorizedAdmin & {
+  success: true;
+};
+
+export type CreateAdminRequestData = {
+  email: string;
+};
+export type CreateAdminResponseData = SecureUser;
+
+export type ChangePasswordRequestData = {
+  password: string;
+};
+export type ChangePasswordResponseData = {
+  id: string;
+  success: boolean;
+};

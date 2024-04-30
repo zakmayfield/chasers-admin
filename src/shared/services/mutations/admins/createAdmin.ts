@@ -1,21 +1,22 @@
-import { fetchService } from '@/shared/helpers/fetchService';
+import { fetchHandler } from '@/shared/helpers';
+import {
+  CreateAdminRequestData,
+  CreateAdminResponseData,
+} from '@/shared/types';
 
-export const createAdmin = async () => await fetchService({ path: '/admins' });
-
-// export const createAdmin = async <T>(): Promise<T> => {
-//   try {
-//     const response = await fetch(getUrl(paths.admins));
-
-//     if (!response.ok) {
-//       throw new Error(await response.text());
-//     }
-
-//     return response.json();
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       throw new Error(error.message);
-//     }
-
-//     throw new Error('server error');
-//   }
-// };
+export const createAdmin = async (
+  body: CreateAdminRequestData
+): Promise<CreateAdminResponseData> =>
+  await fetchHandler({
+    route: '/admins',
+    options: {
+      urlExtension: '/create',
+      config: {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      },
+    },
+  });

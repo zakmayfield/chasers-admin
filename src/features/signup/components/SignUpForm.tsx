@@ -11,7 +11,7 @@ import {
   Input,
   InputError,
   InputLayout,
-  Spinner,
+  Loader,
 } from '@/shared/components';
 
 interface SignUpFormProps {}
@@ -22,7 +22,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
     email: '',
     password: '',
   };
-  const { methods, handleSubmit } = useCustomForm<SignUpFormData>({
+  const { methods, submitHandler } = useCustomForm<SignUpFormData>({
     resolver: signUpResolver,
     defaultValues,
 
@@ -37,7 +37,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
 
   return (
     <div>
-      <Form methods={methods} handleSubmit={handleSubmit}>
+      <Form methods={methods} handleSubmit={submitHandler}>
         <InputLayout>
           <Input
             label='username'
@@ -74,7 +74,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({}) => {
         {methods.formState.isSubmitted &&
         methods.formState.isSubmitSuccessful ? (
           <Container className='h-12 flex items-center justify-center'>
-            <Spinner className='text-3xl' />
+            <Loader />
           </Container>
         ) : (
           <Button content='sign in' />

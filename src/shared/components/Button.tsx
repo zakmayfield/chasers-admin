@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { merge } from '@/utils';
-import { Spinner } from '@/shared/components';
+import { Spinner } from '@/shared/components/loading';
 
 interface ButtonProps {
   content: string;
@@ -27,9 +27,9 @@ export const Button: FC<ButtonProps> = ({
       disabled={isLoading}
       onClick={handleClick}
       className={merge(`
-        min-w-24 p-2 h-12 text-center rounded-md border-2
+        min-w-24 p-2 min-h-14 text-center rounded-md
         bg-chasers-green hover:bg-chasers-green-light 
-        border-chasers-green-light ${className ?? ''}`)}
+        ${className ?? ''}`)}
     >
       {isLoading ? <Spinner /> : content}
     </button>
