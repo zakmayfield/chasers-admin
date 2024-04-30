@@ -37,15 +37,17 @@ export const ChangePassword: FC<ChangePasswordProps> = ({ className }) => {
 
 function ChangePasswordForm() {
   const { notify } = useToast();
-  const { methods, submitHandler } = useCustomForm<ChangePasswordRequestData>({
-    defaultValues: {
-      password: '',
-    },
-    resolver: changePasswordResolver,
-    action(data) {
-      mutate(data);
-    },
-  });
+  const { methods, submitHandler, handleReset } =
+    useCustomForm<ChangePasswordRequestData>({
+      defaultValues: {
+        previousPassword: '',
+        newPassword: '',
+      },
+      resolver: changePasswordResolver,
+      action(data) {
+        mutate(data);
+      },
+    });
 
   const { mutate } = useCustomMutation<
     ChangePasswordResponseData,
@@ -54,11 +56,12 @@ function ChangePasswordForm() {
     mutationFn: changePassword,
     onSuccessCallback(data) {
       notify('Successfully changed password');
-      methods.reset();
+      handleReset();
     },
     onErrorCallback(error) {
       console.log(`mutation:error`, { error });
-      notify(`Error changing password`, 'error');
+      notify(error.message, 'error');
+      handleReset();
     },
   });
 
@@ -67,8 +70,21 @@ function ChangePasswordForm() {
       <FlexCol>
         <InputLayout>
           <Input
+            label='previous password'
+            name='previousPassword'
+            props={{
+              type: 'password',
+              placeholder: 'previous password',
+              required: true,
+            }}
+          />
+        </InputLayout>
+        <InputError fieldError={methods.formState.errors.previousPassword} />
+
+        <InputLayout>
+          <Input
             label='password'
-            name='password'
+            name='newPassword'
             props={{
               type: 'password',
               placeholder: 'password',
@@ -76,16 +92,14 @@ function ChangePasswordForm() {
             }}
           />
         </InputLayout>
-        <InputError fieldError={methods.formState.errors.password} />
+        <InputError fieldError={methods.formState.errors.newPassword} />
 
-        <ContainerFull className='p-comfy-none min-h-10 max-h-10'>
-          {methods.formState.isSubmitted &&
-          methods.formState.isSubmitSuccessful ? (
-            <Spinner />
-          ) : (
-            <Button content='save' className='w-full min-h-max' />
-          )}
-        </ContainerFull>
+        {methods.formState.isSubmitted &&
+        methods.formState.isSubmitSuccessful ? (
+          <Spinner />
+        ) : (
+          <Button content='save' className='w-full min-h-max' />
+        )}
       </FlexCol>
     </Form>
   );
