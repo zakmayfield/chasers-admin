@@ -35,5 +35,9 @@ export const useCustomForm = <T extends FormValues>({
     methods.handleSubmit(() => action?.(data))();
   };
 
-  return { methods, handleSubmit, submitHandler };
+  const handleReset = () => {
+    methods.reset();
+  };
+
+  return { methods, handleSubmit, submitHandler, handleReset };
 };

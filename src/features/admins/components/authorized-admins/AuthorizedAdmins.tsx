@@ -43,11 +43,12 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
     email: '',
   };
 
-  const { methods, submitHandler } = useCustomForm<AuthorizedAdminsData>({
-    defaultValues,
-    resolver: authorizedAdminsResolver,
-    action: handleMutationAction,
-  });
+  const { methods, submitHandler, handleReset } =
+    useCustomForm<AuthorizedAdminsData>({
+      defaultValues,
+      resolver: authorizedAdminsResolver,
+      action: handleMutationAction,
+    });
 
   const { mutate: createAdminAccount } = useCustomMutation<
     CreateAdminResponseData,
@@ -85,7 +86,7 @@ export const AuthorizedAdmins: FC<AuthorizedAdminsProps> = ({ className }) => {
 
   function resetForm() {
     setIsForm(false);
-    methods.reset();
+    handleReset();
   }
 
   return (
