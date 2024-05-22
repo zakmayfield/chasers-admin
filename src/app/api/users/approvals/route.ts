@@ -37,8 +37,6 @@ async function handler() {
       },
     });
 
-    console.log('users awaiting approval', { dbData: usersAwaitingApproval });
-
     const response =
       successResponseHandler<GetUsersAwaitingApprovalResponseData>({
         approvals: usersAwaitingApproval,
