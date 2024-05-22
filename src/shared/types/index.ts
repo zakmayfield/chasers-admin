@@ -86,6 +86,7 @@ export type ErrorResult = {
 export enum QueryKeys {
   ALL_ADMINS = 'admins:all',
   AUTHORIZED_ADMINS = 'admins:authorized',
+  USER_APPROVALS = 'users:approvals',
 }
 
 //^ HOOKS
@@ -151,4 +152,15 @@ export type ChangePasswordRequestData = {
 export type ChangePasswordResponseData = {
   id: string;
   success: boolean;
+};
+
+export type GetUsersAwaitingApprovalResponseData = {
+  approvals: { id: string; email: string }[];
+};
+
+export type UserApprovalResponseData = {
+  success: boolean;
+};
+export type UserApprovalRequestData = {
+  id: string;
 };
