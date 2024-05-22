@@ -13,7 +13,7 @@ import {
   GetUsersAwaitingApprovalResponseData,
 } from '@/shared/types';
 import { merge } from '@/utils';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 interface ApprovalsProps {
   className?: string;
