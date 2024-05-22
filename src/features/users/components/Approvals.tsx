@@ -7,11 +7,14 @@ import {
   Pagination,
 } from '@/shared/components';
 import { CancelIcon, CheckIcon } from '@/shared/components/Icons';
-import { useCustomQuery } from '@/shared/hooks';
-import { getUsersAwaitingApproval } from '@/shared/services/queries/users';
+import { useCustomMutation, useCustomQuery } from '@/shared/hooks';
+import { userApproval } from '@/shared/services/mutations';
+import { getUsersAwaitingApproval } from '@/shared/services/queries';
 import {
   QueryKeys,
   GetUsersAwaitingApprovalResponseData,
+  UserApprovalResponseData,
+  UserApprovalRequestData,
 } from '@/shared/types';
 import { merge } from '@/utils';
 import { FC } from 'react';
@@ -27,6 +30,17 @@ export const Approvals: FC<ApprovalsProps> = ({ className }) => {
       queryFn: getUsersAwaitingApproval,
     });
 
+  const { mutate: approveUserMutation } = useCustomMutation<
+    UserApprovalResponseData,
+    UserApprovalRequestData
+  >({
+    mutationFn: userApproval,
+  });
+
+  function handleApprove(id: string) {
+    approveUserMutation({ id });
+  }
+
   return (
     <ContainerFull className={merge(`${className ?? ''}`)}>
       <FlexCol className='h-full'>
@@ -41,9 +55,11 @@ export const Approvals: FC<ApprovalsProps> = ({ className }) => {
                 <ContainerFull key={user.id} className='border'>
                   <FlexRow className='items-center justify-between'>
                     <div>{user.email}</div>
-                    {/* approve or deny buttons */}
                     <FlexRow>
-                      <button className='border p-2 rounded-smoother'>
+                      <button
+                        className='border p-2 rounded-smoother'
+                        onClick={() => handleApprove(user.id)}
+                      >
                         <CheckIcon />
                       </button>
                       <button className='border p-2 rounded-smoother'>
