@@ -1,18 +1,29 @@
+'use client';
 import {
-  Container,
   ContainerFull,
   ContentContainer,
   FlexCol,
   Pagination,
 } from '@/shared/components';
+import { useCustomQuery } from '@/shared/hooks';
+import { getUsersAwaitingApproval } from '@/shared/services/queries/users';
+import {
+  QueryKeys,
+  GetUsersAwaitingApprovalResponseData,
+} from '@/shared/types';
 import { merge } from '@/utils';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 interface ApprovalsProps {
   className?: string;
 }
 
 export const Approvals: FC<ApprovalsProps> = ({ className }) => {
+  const { data } = useCustomQuery<GetUsersAwaitingApprovalResponseData>({
+    queryKey: [QueryKeys.USER_APPROVALS],
+    queryFn: getUsersAwaitingApproval,
+  });
+
   return (
     <ContainerFull className={merge(`${className ?? ''}`)}>
       <FlexCol className='h-full'>
