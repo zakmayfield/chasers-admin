@@ -3,6 +3,7 @@ import {
   ContainerFull,
   ContentContainer,
   FlexCol,
+  Loader,
   Pagination,
 } from '@/shared/components';
 import { useCustomQuery } from '@/shared/hooks';
@@ -19,10 +20,11 @@ interface ApprovalsProps {
 }
 
 export const Approvals: FC<ApprovalsProps> = ({ className }) => {
-  const { data } = useCustomQuery<GetUsersAwaitingApprovalResponseData>({
-    queryKey: [QueryKeys.USER_APPROVALS],
-    queryFn: getUsersAwaitingApproval,
-  });
+  const { data, isLoading } =
+    useCustomQuery<GetUsersAwaitingApprovalResponseData>({
+      queryKey: [QueryKeys.USER_APPROVALS],
+      queryFn: getUsersAwaitingApproval,
+    });
 
   return (
     <ContainerFull className={merge(`${className ?? ''}`)}>
@@ -30,10 +32,17 @@ export const Approvals: FC<ApprovalsProps> = ({ className }) => {
         <h2>Users Awaiting Approval</h2>
 
         <ContainerFull className='bg-chasers-primary h-full'>
-          <FlexCol>
-            <ContentContainer className='border'>user 1</ContentContainer>
-            <ContentContainer className='border'>user 2</ContentContainer>
-          </FlexCol>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <FlexCol>
+              {data?.approvals.map((user) => (
+                <ContentContainer key={user.id} className='border'>
+                  <div>{user.email}</div>
+                </ContentContainer>
+              ))}
+            </FlexCol>
+          )}
         </ContainerFull>
 
         <Pagination className='p-comfy-sm' />
