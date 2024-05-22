@@ -1,11 +1,12 @@
 'use client';
 import {
   ContainerFull,
-  ContentContainer,
   FlexCol,
+  FlexRow,
   Loader,
   Pagination,
 } from '@/shared/components';
+import { CancelIcon, CheckIcon } from '@/shared/components/Icons';
 import { useCustomQuery } from '@/shared/hooks';
 import { getUsersAwaitingApproval } from '@/shared/services/queries/users';
 import {
@@ -37,9 +38,20 @@ export const Approvals: FC<ApprovalsProps> = ({ className }) => {
           ) : (
             <FlexCol>
               {data?.approvals.map((user) => (
-                <ContentContainer key={user.id} className='border'>
-                  <div>{user.email}</div>
-                </ContentContainer>
+                <ContainerFull key={user.id} className='border'>
+                  <FlexRow className='items-center justify-between'>
+                    <div>{user.email}</div>
+                    {/* approve or deny buttons */}
+                    <FlexRow>
+                      <button className='border p-2 rounded-smoother'>
+                        <CheckIcon />
+                      </button>
+                      <button className='border p-2 rounded-smoother'>
+                        <CancelIcon />
+                      </button>
+                    </FlexRow>
+                  </FlexRow>
+                </ContainerFull>
               ))}
             </FlexCol>
           )}
