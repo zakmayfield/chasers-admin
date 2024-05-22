@@ -157,3 +157,10 @@ export type ChangePasswordResponseData = {
 export type GetUsersAwaitingApprovalResponseData = {
   approvals: { id: string; email: string }[];
 };
+
+export type UserApprovalResponseData = {
+  success: boolean;
+};
+export type UserApprovalRequestData = {
+  id: string;
+};
