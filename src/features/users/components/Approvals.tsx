@@ -8,22 +8,26 @@ import {
 } from '@/shared/components';
 import { CancelIcon, CheckIcon } from '@/shared/components/Icons';
 import { useCustomMutation, useCustomQuery } from '@/shared/hooks';
-import { userApproval } from '@/shared/services/mutations';
+import { userApproval, userDeny } from '@/shared/services/mutations';
 import { getUsersAwaitingApproval } from '@/shared/services/queries';
 import {
   QueryKeys,
   GetUsersAwaitingApprovalResponseData,
   UserApprovalResponseData,
   UserApprovalRequestData,
+  UserDenyApprovalResponseData,
+  UserDenyApprovalRequestData,
 } from '@/shared/types';
 import { merge } from '@/utils';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 interface ApprovalsProps {
   className?: string;
 }
 
 export const Approvals: FC<ApprovalsProps> = ({ className }) => {
+  const [toDelete, setToDelete] = useState(false);
+
   const { data, isLoading } =
     useCustomQuery<GetUsersAwaitingApprovalResponseData>({
       queryKey: [QueryKeys.USER_APPROVALS],
@@ -37,8 +41,18 @@ export const Approvals: FC<ApprovalsProps> = ({ className }) => {
     mutationFn: userApproval,
   });
 
+  const { mutate: denyUserMutation } = useCustomMutation<
+    UserDenyApprovalResponseData,
+    UserDenyApprovalRequestData
+  >({
+    mutationFn: userDeny,
+  });
+
   function handleApprove(id: string) {
     approveUserMutation({ id });
+  }
+  async function handleDeny(id: string) {
+    denyUserMutation({ id });
   }
 
   return (
@@ -62,7 +76,10 @@ export const Approvals: FC<ApprovalsProps> = ({ className }) => {
                       >
                         <CheckIcon />
                       </button>
-                      <button className='border p-2 rounded-smoother'>
+                      <button
+                        className='border p-2 rounded-smoother'
+                        onClick={() => handleDeny(user.id)}
+                      >
                         <CancelIcon />
                       </button>
                     </FlexRow>
