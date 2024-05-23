@@ -6,8 +6,8 @@ import {
 } from '@/shared/helpers/api';
 import { validateSession } from '@/shared/helpers/session';
 import {
-  DenyUserApprovalRequestData,
-  DenyUserApprovalResponseData,
+  UserDenyApprovalRequestData,
+  UserDenyApprovalResponseData,
 } from '@/shared/types';
 
 async function handler(req: Request) {
@@ -17,7 +17,7 @@ async function handler(req: Request) {
     return new Response('unauthenticated', { status: 401 });
   }
 
-  const body: DenyUserApprovalRequestData = await req.json();
+  const body: UserDenyApprovalRequestData = await req.json();
   const { id } = body;
   if (!id || typeof id !== 'string') {
     return new Response('a valid ID is required to make this request', {
@@ -30,7 +30,7 @@ async function handler(req: Request) {
       where: { id },
     });
 
-    const response = successResponseHandler<DenyUserApprovalResponseData>({
+    const response = successResponseHandler<UserDenyApprovalResponseData>({
       success: true,
     });
     return response;

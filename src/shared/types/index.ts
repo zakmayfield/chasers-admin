@@ -165,9 +165,9 @@ export type UserApprovalRequestData = {
   id: string;
 };
 
-export type DenyUserApprovalResponseData = {
+export type UserDenyApprovalResponseData = {
   success: boolean;
 };
-export type DenyUserApprovalRequestData = {
+export type UserDenyApprovalRequestData = {
   id: string;
 };
