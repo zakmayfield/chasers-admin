@@ -26,8 +26,6 @@ interface ApprovalsProps {
 }
 
 export const Approvals: FC<ApprovalsProps> = ({ className }) => {
-  const [toDelete, setToDelete] = useState(false);
-
   const { data, isLoading } =
     useCustomQuery<GetUsersAwaitingApprovalResponseData>({
       queryKey: [QueryKeys.USER_APPROVALS],
