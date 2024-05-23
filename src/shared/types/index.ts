@@ -164,3 +164,10 @@ export type UserApprovalResponseData = {
 export type UserApprovalRequestData = {
   id: string;
 };
+
+export type DenyUserApprovalResponseData = {
+  success: boolean;
+};
+export type DenyUserApprovalRequestData = {
+  id: string;
+};
