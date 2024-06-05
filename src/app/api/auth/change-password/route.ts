@@ -28,11 +28,11 @@ async function handleRequest(
   if (!sessionData) {
     return new Response('unauthorized', { status: 401 });
   }
-  if (!body.password) {
+  if (!body.newPassword || !body.previousPassword) {
     return new Response('invalid request: password required', { status: 401 });
   }
   const { id } = sessionData;
-  const { password } = body;
+  const { newPassword, previousPassword } = body;
 
   try {
     const admin = await db.user.findUniqueOrThrow({
@@ -44,13 +44,15 @@ async function handleRequest(
         password: true,
       },
     });
-    const isPasswordMatch = compare(password, admin.password);
 
-    if (!isPasswordMatch) {
-      return new Response('unauthorized: invalid credentials', { status: 401 });
+    const isValidPassword = await compare(previousPassword, admin.password);
+    if (!isValidPassword) {
+      return new Response('unauthorized: previous password is invalid', {
+        status: 401,
+      });
     }
 
-    const hashedPassword = await hashPassword(password);
+    const hashedPassword = await hashPassword(newPassword);
 
     await db.user.update({
       where: { id: id! },

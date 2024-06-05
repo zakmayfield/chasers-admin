@@ -2,7 +2,6 @@ import { fetchHandler } from '@/shared/helpers';
 import {
   ChangePasswordRequestData,
   ChangePasswordResponseData,
-  CreateAdminResponseData,
 } from '@/shared/types';
 
 export const changePassword = async (
